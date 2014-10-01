@@ -111,7 +111,7 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
       rowheightChanged: -> 
         @rebuildValue()
 
-      valueChanged: ->             
+      valueChanged: ->                   
         @rebuildValue()
         @rebuildHeader()
         @applySort()
@@ -124,8 +124,7 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
 
       rebuildValue: ->        
         @_value = (@value || []).slice(0).map (v,k) =>
-          { row: v, rowheight: @rowheight, ignoredcols: @_ignoredcols }
-        console.log @_value
+          { row: v, rowheight: @rowheight, ignoredcols: @_ignoredcols }        
 
       rebuildHeader: ->
         @headers = Object.keys @_value.reduce (acc, wrapped) ->          
@@ -168,32 +167,21 @@ and sorts the internal databound collection.
 
           compare left, right
 
-### addTemplates()
-Templates from the Light DOM are <content> selected into the Shadow DOM, assigned a 
-key so that in our repeaters we can user template references and delay binding our 
-cell/header data.
-
-      addTemplates: (nodes, type) ->        
-        nodes.getDistributedNodes().array().forEach (t) =>
-          col = t.getAttribute 'name'
-          t.setAttribute 'id', "#{col}-#{type}"                  
-          @shadowRoot.appendChild t
-
-      wrapContentSelect: (nodes,name) ->
-        first = nodes.getDistributedNodes().array()[0]
-        if first
-          first.setAttribute 'id', name                  
-          @shadowRoot.appendChild first
-
 ### ready()
 Reads cell and header templates once component is ready for use.
 
-      ready: ->      
-        # @wrapContentSelect @$.header, 'header-template'
-        # @wrapContentSelect @$.row, 'row-template'
-        
-        # @addTemplates @$.rows, 'cells'
-        # @addTemplates @$.headers, 'header'      
+      ready: ->          
+        cellDefaultOverride = @$['cell-default-override']
+          .getDistributedNodes().array()?[0]        
+
+        if cellDefaultOverride
+          @shadowRoot.removeChild @$['cell-default']
+
+          t = document.createElement 'template'
+          t.setAttribute 'id', 'cell-default'
+          t.innerHTML = cellDefaultOverride.innerHTML
+          @shadowRoot.appendChild t
+
 
 ### keys(obj):Array
 Filter used to transform to allow objects to be iterated over with `TemplateBinding.repeat`

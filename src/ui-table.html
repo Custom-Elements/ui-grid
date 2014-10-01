@@ -35,37 +35,37 @@
   <template>    
     <link rel="stylesheet" type="text/css" href="./ui-table.less">
 
-    <!-- need to pull back in ability to pull in custom templates -->
-
-    <content id="row" select="template[row]"></content>
-    <content id="header" select="template[header]"></content>
-      
-    <template id="row-template">
-      <template repeat="{{ key in row | keys | remove(ignoredcols) }}">
-        <grid-cell flex col="{{key}}">
-          {{ row[key] }}
-        </grid-cell>
-      </template>
+    <!-- content select out the overrides for default cell renderers -->    
+    <content id="cell-default-override" select="[cell-default]"></content>
+         
+    <template id="header-default">
+      <grid-cell flex>
+        <grid-sort-header sortprop="{{header}}" active="true" col="{{header}}">
+          {{ header }} 
+          <grid-sort-icon sort-icon></grid-sort-icon>          
+        </grid-sort-header>
+      </grid-cell>
     </template>
-        
+
+    <template id="row-default">
+      <grid-row horizontal layout style="height: {{ rowheight }}px;">
+        <template ref="cell-default" repeat="{{ key in row | keys | remove(ignoredcols) }}"></template>
+      </grid-row>
+    </template>
+
+     <template id="cell-default">      
+      <grid-cell flex col="{{key}}">
+        {{ row[key] }}
+      </grid-cell>
+    </template>
+
     <grid>                
       <grid-header horizontal layout>
-        <template repeat="{{ header in headers | remove(_ignoredcols) }}">
-          <grid-cell flex>
-            <grid-sort-header sortprop="{{header}}" active="true" col="{{header}}">
-              {{ header }} 
-              <grid-sort-icon sort-icon></grid-sort-icon>          
-            </grid-sort-header>          
-          </grid-cell>
-        </template>        
+        <template repeat="{{ header in headers | remove(_ignoredcols) }}" ref="header-default"></template>        
       </grid-header>      
       <grid-body>            
         <core-list data="{{ _value }}" height="{{ rowheight }}">
-          <template>            
-            <grid-row horizontal layout style="height: {{ rowheight }}px;">
-              <template ref="row-template" bind="{{}}"></template>
-            </grid-row>
-          </template>
+          <template ref="row-default"></template>
         </core-list>      
       </grid-body>
     </grid>
