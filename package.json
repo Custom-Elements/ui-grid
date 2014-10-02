@@ -2,12 +2,10 @@
   "name": "ui-table",
   "version": "0.0.0",
   "dependencies": {
-    "polymer-build": "",
-    "polymer": "git://github.com/custom-elements/polymer#master"  
+    "polymer-build": ""    
   },
   "license": "ISC",
   "scripts": {
-    "test": "polymer-build watch . src/ build/",
-    "install": "napa"
+    "test": "polymer-build watch . src/ build/"    
   }  
 }

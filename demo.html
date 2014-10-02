@@ -20,11 +20,11 @@
     
   <body>        
     
-      <ui-table rowheight="40" ignoredcols="CouncilMemberId">
-        <template cell-default>          
-          <grid-cell flex col="{{key}}">            
-            <b>{{ row[key] }}</b>
-          </grid-cell>          
+      <ui-table rowheight="100" ignoredcols="CouncilMemberId">
+        <template cell-default>
+          <grid-cell flex col="{{key}}">
+            {{ row[key] }}
+          </grid-cell>
         </template>
       </ui-table>  
 
@@ -52,7 +52,7 @@
       var startTime = new Date();
       console.log('generating data');
       var data = [];
-      for (var i = 0; i < 1000000; i++) {
+      for (var i = 0; i < 1000; i++) {
         var keys = [ 'a', 'b', 'c', 'd', 'e', 'f' ];
         var row = keys.reduce(function(acc,key,j) {
           acc[key] = key+i;

@@ -1,9 +1,10 @@
 {
   "name": "ui-table",
   "version": "0.0.0",
-  "homepage": "https://github.com/sayeefb/ui-table",
+  "homepage": "https://github.com/CustomElements/ui-table",
   "authors": [
-    "Ryan Fairchild <rfairchild@glgroup.com>"
+    "Ryan Fairchild <ryan.fairchild@gmail.com>",
+    "Sayeef Bazli <sayeef.bazli@gmail.com>"
   ],
   "license": "MIT",
   "ignore": [
@@ -14,8 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "core-splitter": "Polymer/core-splitter#~0.4.1",
-    "polymer-fontawesome": "rtbenfield/polymer-fontawesome#master",
+    "core-splitter": "Polymer/core-splitter#~0.4.1",    
     "core-ajax": "Polymer/core-ajax#~0.4.1"
   }
 }
