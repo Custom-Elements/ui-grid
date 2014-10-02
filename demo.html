@@ -14,45 +14,28 @@
     }      
 
     ui-table {
-      height: 600px;
+      height: 100%;
     }
   </style>
     
   <body>        
     
-      <ui-table rowheight="100" ignoredcols="CouncilMemberId">
-        <template cell-default>
-          <grid-cell flex col="{{key}}">
-            {{ row[key] }}
-          </grid-cell>
-        </template>
-      </ui-table>  
-
-    
-      <button onclick="changeUrl()">Change data source</button>    
-    </div>
+      <ui-table rowheight="40">        
+      </ui-table>      
     
   </body>
 
   <script>
-    function changeUrl () {
-      var table = document.querySelector('ui-table');
-      table.ignoredcols = ['country'];
-      table.src = "http://localhost:9710/councilMember/getCouncilMemberEmployment.mustache?councilMemberId=545201";
-      table.transformResponse = function(value) {
-        return value[0];
-      }
-
-    }
-
-
+    
     document.addEventListener('polymer-ready', function() {      
       var table = document.querySelector('ui-table');
 
       var startTime = new Date();
       console.log('generating data');
+      
       var data = [];
-      for (var i = 0; i < 1000; i++) {
+      
+      for (var i = 0; i < 1000000; i++) {
         var keys = [ 'a', 'b', 'c', 'd', 'e', 'f' ];
         var row = keys.reduce(function(acc,key,j) {
           acc[key] = key+i;
@@ -65,13 +48,6 @@
       console.log('generating data done',  (new Date().getTime() - startTime.getTime()) / 1000);        
       
       table.value = data;  
-
-
-      // var table = document.querySelector('ui-table');
-      // table.src = "http://localhost:9710/councilMember/getkeyExecutiveCouncilMembers.mustache";
-      // table.transformResponse = function(value) {
-      //   return value;
-      // }
       
     })
   </script>
