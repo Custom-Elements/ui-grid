@@ -1,0 +1,11 @@
+{
+  "name": "ui-table",
+  "version": "0.0.0",
+  "dependencies": {
+    "polymer-build": ""    
+  },
+  "license": "ISC",
+  "scripts": {
+    "test": "polymer-build watch . src/ build/"    
+  }  
+}

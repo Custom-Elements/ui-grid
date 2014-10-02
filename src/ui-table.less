@@ -1,0 +1,72 @@
+@grid-header-height: 38px;
+
+:host {
+  height: 100%;
+  display: block;
+}
+
+[hide] {
+  display:none;
+}
+
+grid {
+  display: block; 
+  height: 100%;
+  font-family:arial;
+
+  grid-header {
+    text-transform: capitalize; 
+    font-weight: bold;
+    height: @grid-header-height;
+
+    grid-cell {
+      cursor: pointer;
+    }
+  }
+
+  grid-body {
+    display: block; 
+    height: ~"calc(100% -" @grid-header-height ~")";
+  }
+  
+  grid-row {
+    display:block;    
+  }
+
+  grid-cell {
+    display:block;
+    height: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-bottom:1px inset #ddd;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }  
+
+  grid-sort-header {
+    display:block;    
+  }
+
+  grid-sort-icon {
+    float: right;
+  }
+}
+
+core-list {
+  height: 100%;
+}
+
+[sort-asc]:before {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+  content:"\25be";
+  display:inline-block;
+}
+
+[sort-desc]:before {
+  content:"\25be";
+}
