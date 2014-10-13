@@ -1,4 +1,7 @@
 #PolymerExpression extensions
+`core-list` overrides the model of each repeated row and we lose scope of the parent element.
+In this case it would be ui-table.  So we share the filters between `core-list` managed 
+elements and `ui-table` managed elements.
 
     PolymerExpressions.prototype.keys = (o) ->
       Object.keys(o)
@@ -9,7 +12,7 @@
 
     
 #grid-sort-icon
-Reactive icon for the current sort direction on the ui-th
+Reactive icon for the current sort direction on the `grid-sort-header`
 
     Polymer 'grid-sort-icon', {}    
 
@@ -46,18 +49,18 @@ Call this to sync your sort icon with the current state
 
       updateIcon: ->
         sortIcon = @querySelector '[sort-icon]'
-        sortIcon.setAttribute 'direction', @direction        
+        sortIcon?.setAttribute 'direction', @direction        
 
 ### applySort()
 Syncs `direction`,`sortprop`,`col` and `active`, if they are unset or falsey
 no event is dispatched.
 
-_Dispatches:_ `'ui-table-sort', { direction, prop, col }`
+_Dispatches:_ `'grid-sort', { direction, prop, col }`
 
       applySort: ->
         return unless @direction?.length and @sortprop and @active
         
-        @fire 'ui-table-sort',
+        @fire 'grid-sort',
           direction: @direction
           prop: @sortprop
           col: @col    
@@ -69,7 +72,7 @@ then it will suppress `applySort()` from dispatching its event.
       toggleDirection: (event, detail, element) ->        
         @direction = if @direction == 'asc' then 'desc' else 'asc'                
         @active = true        
-        @fire 'ui-th-click', @templateInstance.model
+        @fire 'grid-header-click', @templateInstance.model
 
 
 #ui-table 
@@ -133,7 +136,7 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
         , {}
 
 ### sortColumn()
-Change handler for the `ui-table-sort` event that is dispatched by child elements
+Change handler for the `grid-sort` event that is dispatched by child elements
 
       sortColumn: (event, descriptor) ->             
         @sort = descriptor      
@@ -184,7 +187,6 @@ Reads cell and header templates once component is ready for use.
 
 
 ### keys(obj):Array
-Filter used to transform to allow objects to be iterated over with `TemplateBinding.repeat`
   
       merge: (obj) ->
         data = obj.data
