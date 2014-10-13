@@ -85,12 +85,24 @@ out a table for you.  Also responds to sorting events that can be dispatched by 
 Comparators for native sort function. These can be overidden though I do not recommend it.
 
       sortFunctions:
-        asc: (a,b) ->           
+        asc: (a,b) ->
+          return 1 if a is undefined or a is '' or a is null
+          return -1 if b is undefined or b is '' or b is null
+          if typeof(a) is 'string'
+            a = a.toLowerCase().trim()
+          if typeof(b) is 'string'
+            b = b.toLowerCase().trim()
           return 1 if a > b
           return -1 if a < b
           return 0
 
-        desc: (a,b) ->           
+        desc: (a,b) -> 
+          return 1 if a is undefined or a is '' or a is null
+          return -1 if b is undefined or b is '' or b is null
+          if typeof(a) is 'string'
+            a = a.toLowerCase().trim()
+          if typeof(b) is 'string'
+            b = b.toLowerCase().trim()
           return 1 if a < b
           return -1 if a > b
           return 0
