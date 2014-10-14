@@ -6,6 +6,6 @@
   },
   "license": "ISC",
   "scripts": {
-    "test": "polymer-build watch . src/ build/"    
+    "test": "polymer-build --exclude-polymer watch . src/ build/"    
   }  
 }
