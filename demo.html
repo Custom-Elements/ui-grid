@@ -18,9 +18,11 @@
     }
   </style>
     
-  <body>        
-    
-      <ui-table rowheight="40" ignoredcols="CouncilMemberId" src="http://localhost:3200/councilMember/getkeyExecutiveCouncilMembers.mustache">
+  <body>
+      <ui-table id="table" rowheight="40" ignoredcols="CouncilMemberId" src="http://localhost:3200/councilMember/getkeyExecutiveCouncilMembers.mustache">
+        <template column name="Name">
+          <a href="http://www.google.com?id={{row.CouncilMemberId}}" target="#">{{row.Name}}</a>
+        </template>
       </ui-table>      
     
   </body>
@@ -32,6 +34,12 @@
       table.transformResponse = function(a){
         return a;
       }
+      document.addEventListener('grid-cell-click', function(e){
+        console.log (e);
+      })
+      document.addEventListener('grid-cell-double-click', function(e){
+        console.log (e);
+      })
       // var startTime = new Date();
       // console.log('generating data');
       

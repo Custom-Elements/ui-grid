@@ -1,7 +1,15 @@
 <link rel="import" href="../bower_components/core-list/core-list.html">
 <link rel="import" href="../bower_components/core-ajax/core-ajax.html">
 
-<polymer-element name="grid-cell" on-click="{{cellClicked}}">
+<polymer-element name="grid-cell" on-click="{{cellClicked}}" on-dblClick="{{cellDoubleClicked}}">
+  
+  <template>
+    <content></content>
+  </template>
+  
+</polymer-element>
+
+<polymer-element name="grid-header" on-click="{{headerClicked}}" on-dblClick="{{headerDoubleClicked}}">
   
   <template>
     <content></content>
@@ -37,26 +45,29 @@
 
     <!-- content select out the overrides for default cell renderers -->    
     <content id="cell-default-override" select="[cell-default]"></content>
+    <content id="columnOverrides" select="[column]"></content>
          
     <template id="header-default">
-      <grid-cell flex>
+      <grid-header flex>
         <grid-sort-header sortprop="{{header}}" active="true" col="{{header}}">
           {{ header }} 
           <grid-sort-icon sort-icon></grid-sort-icon>          
         </grid-sort-header>
-      </grid-cell>
+      </grid-header>
     </template>
 
     <template id="row-default">
       <grid-row horizontal layout style="height: {{ rowheight }}px;">
-        <template ref="cell-default" repeat="{{ key in row | keys | remove(ignoredcols) }}"></template>
+        <template repeat="{{ key in row | keys | remove(ignoredcols) }}">
+          <grid-cell flex>
+            <template ref="{{userDefinedTemplates | findTemplate(key)}}" bind="{{}}"></template>
+          </grid-cell>
+        </template>
       </grid-row>
     </template>
 
-     <template id="cell-default">      
-      <grid-cell flex col="{{key}}">
-        {{ row[key] }}
-      </grid-cell>
+    <template id="cell-default">      
+      {{ row[key] }}
     </template>
 
     <grid>                

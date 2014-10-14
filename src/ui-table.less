@@ -33,9 +33,8 @@ grid {
     display:block;    
   }
 
-  grid-cell {
+  grid-cell, grid-header {
     display:block;
-    height: 100%;
     padding: 10px;
     box-sizing: border-box;
     border-bottom:1px inset #ddd;
@@ -43,6 +42,10 @@ grid {
     overflow: hidden;
     white-space: nowrap;
   }  
+
+  grid-cell {
+    height: 100%;
+  }
 
   grid-sort-header {
     display:block;    

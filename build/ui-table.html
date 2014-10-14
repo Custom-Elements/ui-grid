@@ -1377,7 +1377,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </polymer-element>
 
 
-<polymer-element name="grid-cell" on-click="{{cellClicked}}">
+<polymer-element name="grid-cell" on-click="{{cellClicked}}" on-dblclick="{{cellDoubleClicked}}">
   
   <template>
     <content></content>
@@ -1528,6 +1528,7 @@ core-list {
 
     <!-- content select out the overrides for default cell renderers -->    
     <content id="cell-default-override" select="[cell-default]"></content>
+    <content id="columnOverrides" select="[column]"></content>
          
     <template id="header-default">
       <grid-cell flex="">
@@ -1540,14 +1541,14 @@ core-list {
 
     <template id="row-default">
       <grid-row horizontal="" layout="" style="height: {{ rowheight }}px;">
-        <template ref="cell-default" repeat="{{ key in row | keys | remove(ignoredcols) }}"></template>
+        <grid-cell flex="">
+          <template ref="cell-default" repeat="{{ key, k in row | keys | remove(ignoredcols) }}"></template>
+        </grid-cell>
       </grid-row>
     </template>
 
-     <template id="cell-default">      
-      <grid-cell flex="" col="{{key}}">
-        {{ row[key] }}
-      </grid-cell>
+    <template id="cell-default">      
+      {{ row[key] }}
     </template>
 
     <grid>                
@@ -1585,7 +1586,24 @@ Polymer('grid-sort-icon', {});
 
 Polymer('grid-cell', {
   cellClicked: function() {
-    return this.fire('grid-cell-click', this.templateInstance.model);
+    var type;
+    type = typeof this.templateInstance.model.row === 'object' ? 'cell' : 'header';
+    return this.fire('grid-cell-click', {
+      row: this.templateInstance.model.row,
+      index: this.templateInstance.model.k,
+      key: this.templateInstance.model.key,
+      type: type
+    });
+  },
+  cellDoubleClicked: function() {
+    var type;
+    type = typeof this.templateInstance.model.row === 'object' ? 'cell' : 'header';
+    return this.fire('grid-cell-double-click', {
+      row: this.templateInstance.model.row,
+      index: this.templateInstance.model.k,
+      key: this.templateInstance.model.key,
+      type: type
+    });
   }
 });
 
@@ -1745,8 +1763,20 @@ Polymer('ui-table', {
       };
     })(this));
   },
+  addTemplates: function(nodes, type) {
+    debugger;
+    return nodes.getDistributedNodes().array().forEach((function(_this) {
+      return function(t) {
+        var col;
+        col = t.getAttribute('name');
+        t.setAttribute('id', "" + col + "-" + type);
+        return _this.shadowRoot.appendChild(t);
+      };
+    })(this));
+  },
   ready: function() {
     var cellDefaultOverride, t, _ref;
+    this.addTemplates(this.$.columnOverrides, 'column');
     cellDefaultOverride = (_ref = this.$['cell-default-override'].getDistributedNodes().array()) != null ? _ref[0] : void 0;
     if (cellDefaultOverride) {
       this.shadowRoot.removeChild(this.$['cell-default']);
@@ -1755,15 +1785,6 @@ Polymer('ui-table', {
       t.innerHTML = cellDefaultOverride.innerHTML;
       return this.shadowRoot.appendChild(t);
     }
-  },
-  merge: function(obj) {
-    var data;
-    data = obj.data;
-    data.metaData = {
-      rowIndex: obj.rowIndex,
-      column: obj.column
-    };
-    return data;
   },
   propParser: function(doc, prop) {
     return prop.split('.').reduce(function(acc, p) {

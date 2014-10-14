@@ -10,6 +10,14 @@ elements and `ui-table` managed elements.
       return arr unless arr?.length and remove?.length
       arr.filter (a) -> !!remove.indexOf a 
 
+    PolymerExpressions.prototype.findTemplate = (userDefinedTemplates, key) ->
+      cellTemplate = 'cell-default'
+      userDefinedTemplates.array().forEach (i)->
+        if i.getAttribute('name') == key
+          cellTemplate = "#{key}-column"
+      
+      cellTemplate
+
     
 #grid-sort-icon
 Reactive icon for the current sort direction on the `grid-sort-header`
@@ -21,9 +29,22 @@ Light wrapper for cell element
     
     Polymer 'grid-cell', 
 
-      cellClicked: ->                
+      cellClicked: ->
         @fire 'grid-cell-click', @templateInstance.model
 
+      cellDoubleClicked: ->            
+        @fire 'grid-cell-double-click', @templateInstance.model
+
+#grid-header
+Light wrapper for cell element
+    
+    Polymer 'grid-header', 
+
+      headerClicked: ->
+        @fire 'grid-header-click', @templateInstance.model
+
+      headerDoubleClicked: ->            
+        @fire 'grid-header-double-click', @templateInstance.model
 
 #grid-sort-header
 An element to handle sorting of a particular column and upating a its sort icon
@@ -139,7 +160,7 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
 
       rebuildValue: ->        
         @_value = (@value || []).slice(0).map (v,k) =>
-          { row: v, rowheight: @rowheight, ignoredcols: @_ignoredcols }        
+          { row: v, rowheight: @rowheight, ignoredcols: @_ignoredcols , userDefinedTemplates: @userDefinedTemplates}        
 
       rebuildHeader: ->
         @headers = Object.keys @_value.reduce (acc, wrapped) ->          
@@ -182,10 +203,22 @@ and sorts the internal databound collection.
 
           compare left, right
 
+### addTemplates(nodes, type)
+Internal function to port the user defined templates
+      
+      addTemplates: (nodes, type) ->
+        nodes.getDistributedNodes().array().forEach (t)=>
+          col = t.getAttribute 'name'
+          t.setAttribute 'id', "#{col}-#{type}"
+          @shadowRoot.appendChild t
+
 ### ready()
 Reads cell and header templates once component is ready for use.
 
-      ready: ->          
+      ready: ->
+        @addTemplates @$.columnOverrides, 'column'
+        @userDefinedTemplates = @shadowRoot.querySelectorAll 'template[column]'
+
         cellDefaultOverride = @$['cell-default-override']
           .getDistributedNodes().array()?[0]        
 
@@ -196,16 +229,7 @@ Reads cell and header templates once component is ready for use.
           t.setAttribute 'id', 'cell-default'
           t.innerHTML = cellDefaultOverride.innerHTML
           @shadowRoot.appendChild t
-
-
-### keys(obj):Array
-  
-      merge: (obj) ->
-        data = obj.data
-        data.metaData = 
-          rowIndex: obj.rowIndex
-          column: obj.column
-        data                
+                       
   
 ### propParser(doc,prop):*
 Takes a document and dot property string (ex. `'prop1.prop2'`) and returns the value
