@@ -1378,7 +1378,7 @@ Polymer('ui-table', {
   },
   ignoredcolsChanged: function() {
     this._ignoredcols = this.ignoredcols;
-    if (this.ignoredcols.constructor === String) {
+    if (typeof this.ignoredcols === 'string') {
       this._ignoredcols = this.ignoredcols.split(',');
     }
     return this.rebuildValue();

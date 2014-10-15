@@ -141,7 +141,7 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
       
       ignoredcolsChanged: ->        
         @_ignoredcols = @ignoredcols
-        @_ignoredcols = @ignoredcols.split(',') if @ignoredcols.constructor == String        
+        @_ignoredcols = @ignoredcols.split(',') if typeof(@ignoredcols) == 'string'        
         @rebuildValue()
 
       rowheightChanged: -> 
