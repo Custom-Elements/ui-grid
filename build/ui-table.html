@@ -1323,8 +1323,7 @@ Polymer('grid-sort-header', {
   },
   toggleDirection: function(event, detail, element) {
     this.direction = this.direction === 'asc' ? 'desc' : 'asc';
-    this.active = true;
-    return this.fire('grid-header-click', this.templateInstance.model);
+    return this.active = true;
   }
 });
 
@@ -1390,7 +1389,9 @@ Polymer('ui-table', {
     this.rebuildValue();
     this.rebuildHeader();
     this.applySort();
-    return this.fire('grid-value-changed');
+    return this.fire('grid-value-changed', {
+      id: this.id
+    });
   },
   updateValue: function(event) {
     var res;
@@ -1407,7 +1408,8 @@ Polymer('ui-table', {
           row: v,
           rowheight: _this.rowheight,
           ignoredcols: _this._ignoredcols,
-          userDefinedTemplates: _this.userDefinedTemplates
+          userDefinedTemplates: _this.userDefinedTemplates,
+          tableId: _this.id
         };
       };
     })(this));
@@ -1428,7 +1430,6 @@ Polymer('ui-table', {
     sortables = (_ref = this.shadowRoot) != null ? _ref.querySelectorAll("grid-sort-header") : void 0;
     return sortables != null ? sortables.array().forEach((function(_this) {
       return function(sortable) {
-        console.log(sortable.col, _this.sort.col);
         if (sortable.col !== _this.sort.col) {
           sortable.setAttribute('active', false);
           return sortable.direction = '';

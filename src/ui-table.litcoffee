@@ -93,7 +93,6 @@ then it will suppress `applySort()` from dispatching its event.
       toggleDirection: (event, detail, element) ->        
         @direction = if @direction == 'asc' then 'desc' else 'asc'                
         @active = true        
-        @fire 'grid-header-click', @templateInstance.model
 
 
 #ui-table 
@@ -151,7 +150,7 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
         @rebuildValue()
         @rebuildHeader()
         @applySort()
-        @fire 'grid-value-changed'
+        @fire 'grid-value-changed', {tableId: @id}
 
       updateValue: (event) ->        
         res = event.detail.response
@@ -161,7 +160,7 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
 
       rebuildValue: ->        
         @_value = (@value || []).slice(0).map (v,k) =>
-          { row: v, rowheight: @rowheight, ignoredcols: @_ignoredcols , userDefinedTemplates: @userDefinedTemplates}        
+          { row: v, rowheight: @rowheight, ignoredcols: @_ignoredcols , userDefinedTemplates: @userDefinedTemplates, tableId: @id}        
 
       rebuildHeader: ->
         @headers = Object.keys @_value.reduce (acc, wrapped) ->          
@@ -181,8 +180,7 @@ reset their `direction` if they are not active.  For now only single column sort
 
       updateHeaders: ->        
         sortables = @shadowRoot?.querySelectorAll "grid-sort-header"                    
-        sortables?.array().forEach (sortable) =>    
-          console.log sortable.col, @sort.col                
+        sortables?.array().forEach (sortable) =>               
           if sortable.col != @sort.col
             sortable.setAttribute 'active', false
             sortable.direction = ''                     
