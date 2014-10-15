@@ -1389,7 +1389,8 @@ Polymer('ui-table', {
   valueChanged: function() {
     this.rebuildValue();
     this.rebuildHeader();
-    return this.applySort();
+    this.applySort();
+    return this.fire('grid-value-changed');
   },
   updateValue: function(event) {
     var res;

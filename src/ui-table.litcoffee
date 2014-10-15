@@ -151,6 +151,7 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
         @rebuildValue()
         @rebuildHeader()
         @applySort()
+        @fire 'grid-value-changed'
 
       updateValue: (event) ->        
         res = event.detail.response
