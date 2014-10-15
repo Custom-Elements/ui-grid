@@ -1388,7 +1388,6 @@ Polymer('ui-table', {
   valueChanged: function() {
     this.rebuildValue();
     this.rebuildHeader();
-    debugger;
     this.applySort();
     return this.fire('grid-value-changed', {
       tableId: this.id
