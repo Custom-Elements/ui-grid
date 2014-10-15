@@ -1390,7 +1390,7 @@ Polymer('ui-table', {
     this.rebuildHeader();
     this.applySort();
     return this.fire('grid-value-changed', {
-      id: this.id
+      tableId: this.id
     });
   },
   updateValue: function(event) {
