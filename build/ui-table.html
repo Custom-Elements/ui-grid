@@ -1139,7 +1139,7 @@ core-list {
 
 </polymer-element>
 
-<polymer-element name="ui-table" attributes="value sort url rowheight src ignoredcols" on-grid-sort="{{sortColumn}}">
+<polymer-element name="ui-table" attributes="value sort url rowheight src ignoredcols headers" on-grid-sort="{{sortColumn}}">
     
   <template>    
     <style>:host {
@@ -1388,6 +1388,7 @@ Polymer('ui-table', {
   valueChanged: function() {
     this.rebuildValue();
     this.rebuildHeader();
+    debugger;
     this.applySort();
     return this.fire('grid-value-changed', {
       tableId: this.id

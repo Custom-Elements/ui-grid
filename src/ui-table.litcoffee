@@ -163,7 +163,7 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
           { row: v, rowheight: @rowheight, ignoredcols: @_ignoredcols , userDefinedTemplates: @userDefinedTemplates, tableId: @id}        
 
       rebuildHeader: ->
-        @headers = Object.keys @_value.reduce (acc, wrapped) ->          
+        @headers = Object.keys @_value.reduce (acc, wrapped) ->         
           Object.keys(wrapped.row).forEach (k) -> acc[k] = true 
           acc
         , {}
