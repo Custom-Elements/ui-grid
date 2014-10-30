@@ -18,6 +18,9 @@ elements and `ui-table` managed elements.
       
       cellTemplate
 
+    PolymerExpressions.prototype.getRowheightDefined = (val) ->
+      if @rowheightDef == true then return 'rowheightDefined' else return ''
+
     
 #grid-sort-icon
 Reactive icon for the current sort direction on the `grid-sort-header`
@@ -132,33 +135,35 @@ Comparators for native sort function. These can be overidden though I do not rec
 ### sortChanged()
 The `sort` property can be changed externally on the node or defined on your templates elements.
 
-      sortChanged: -> @applySort()    
+      sortChanged: -> @applySort()   
 
 ### valueChanged()
 When the value is changed it also builds out the headers off of the first row
 in the `value` property.  This is likely to change. Sorting is also applied if applicable 
       
-      ignoredcolsChanged: ->        
+      ignoredcolsChanged: ->   
         @_ignoredcols = @ignoredcols
         @_ignoredcols = @ignoredcols.split(',') if typeof(@ignoredcols) == 'string'        
         @rebuildValue()
 
-      rowheightChanged: -> 
+      rowheightChanged: (oldVal, newVal)->
+        if !@_rowheight
+          @_rowheight = if newVal then newVal else -1
         @rebuildValue()
 
-      valueChanged: ->                   
+      valueChanged: -> 
         @rebuildValue()
         @rebuildHeader()
         @applySort()
         @fire 'grid-value-changed', {tableId: @id}
 
-      updateValue: (event) ->        
+      updateValue: (event) ->  
         res = event.detail.response
         if @transformResponse
           return @value = @transformResponse res
         @value = res
 
-      rebuildValue: ->        
+      rebuildValue: ->  
         @_value = (@value || []).slice(0).map (v,k) =>
           { row: v, rowheight: @rowheight, ignoredcols: @_ignoredcols , userDefinedTemplates: @userDefinedTemplates, tableId: @id}        
 
@@ -210,6 +215,9 @@ Internal function to port the user defined templates
           col = t.getAttribute 'name'
           t.setAttribute 'id', "#{col}-#{type}"
           @shadowRoot.appendChild t
+
+
+      
 
 ### ready()
 Reads cell and header templates once component is ready for use.

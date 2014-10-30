@@ -38,28 +38,25 @@
 
 </polymer-element>
 
-<polymer-element name="ui-table" attributes="value sort url rowheight src ignoredcols headers" on-grid-sort="{{sortColumn}}">
+<polymer-element name="ui-table" attributes="value sort url rowheightDef rowheight src ignoredcols headers" on-grid-sort="{{sortColumn}}">
     
-  <template>    
+  <template>
     <link rel="stylesheet" type="text/css" href="./ui-table.less">
-
     <!-- content select out the overrides for default cell renderers -->    
     <content id="cell-default-override" select="[cell-default]"></content>
     <content id="columnOverrides" select="[column]"></content>
-         
     <template id="header-default">
-      <grid-header flex>
+      <grid-header-item flex>
         <grid-sort-header sortprop="{{header}}" active="true" col="{{header}}">
           {{ header }} 
           <grid-sort-icon sort-icon></grid-sort-icon>          
         </grid-sort-header>
-      </grid-header>
+      </grid-header-item>
     </template>
-
     <template id="row-default">
       <grid-row horizontal layout style="height: {{ rowheight }}px;">
         <template repeat="{{ key in row | keys | remove(ignoredcols) }}">
-          <grid-cell flex>
+          <grid-cell flex title="{{ row[key] }}" class="{{key}}">
             <template ref="{{userDefinedTemplates | findTemplate(key)}}" bind="{{}}"></template>
           </grid-cell>
         </template>
@@ -73,8 +70,8 @@
     <grid>                
       <grid-header horizontal layout>
         <template repeat="{{ header in headers | remove(_ignoredcols) }}" ref="header-default"></template>        
-      </grid-header>      
-      <grid-body>            
+      </grid-header> 
+      <grid-body class="{{ rowheightDef | getRowheightDefined}}">  
         <core-list data="{{ _value }}" height="{{ rowheight }}">
           <template ref="row-default"></template>
         </core-list>      

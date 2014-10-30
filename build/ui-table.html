@@ -1077,18 +1077,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 [hide] {
   display: none;
 }
-grid {
-  display: block;
-  height: 100%;
-  font-family: arial;
-}
-grid grid-header {
+grid-header {
   text-transform: capitalize;
   font-weight: bold;
   height: 38px;
 }
-grid grid-header grid-cell {
-  cursor: pointer;
+.rowheightDefined grid-cell {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+grid {
+  display: block;
+  height: 100%;
+  font-family: arial;
 }
 grid grid-body {
   display: block;
@@ -1096,19 +1097,23 @@ grid grid-body {
 }
 grid grid-row {
   display: block;
+  border: solid 1px #e2e2e2;
+  border-top: none;
 }
 grid grid-cell,
-grid grid-header {
+grid grid-header-item {
   display: block;
   padding: 10px;
   box-sizing: border-box;
-  border-bottom: 1px inset #ddd;
-  text-overflow: ellipsis;
   overflow: hidden;
-  white-space: nowrap;
 }
 grid grid-cell {
   height: 100%;
+  cursor: pointer;
+}
+grid grid-cell:hover {
+  border-radius: 5px;
+  z-index: 9800;
 }
 grid grid-sort-header {
   display: block;
@@ -1127,9 +1132,15 @@ core-list {
   transform: rotate(180deg);
   content: "\25be";
   display: inline-block;
+  cursor: pointer;
+}
+[sort]:before {
+  content: "\2b0d";
+  cursor: pointer;
 }
 [sort-desc]:before {
   content: "\25be";
+  cursor: pointer;
 }
 </style>    
     <icon sort-asc="" hide?="{{ direction != &apos;asc&apos; }}"></icon>
@@ -1139,9 +1150,9 @@ core-list {
 
 </polymer-element>
 
-<polymer-element name="ui-table" attributes="value sort url rowheight src ignoredcols headers" on-grid-sort="{{sortColumn}}">
+<polymer-element name="ui-table" attributes="value sort url rowheightDef rowheight src ignoredcols headers" on-grid-sort="{{sortColumn}}">
     
-  <template>    
+  <template>
     <style>:host {
   height: 100%;
   display: block;
@@ -1149,18 +1160,19 @@ core-list {
 [hide] {
   display: none;
 }
-grid {
-  display: block;
-  height: 100%;
-  font-family: arial;
-}
-grid grid-header {
+grid-header {
   text-transform: capitalize;
   font-weight: bold;
   height: 38px;
 }
-grid grid-header grid-cell {
-  cursor: pointer;
+.rowheightDefined grid-cell {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+grid {
+  display: block;
+  height: 100%;
+  font-family: arial;
 }
 grid grid-body {
   display: block;
@@ -1168,19 +1180,23 @@ grid grid-body {
 }
 grid grid-row {
   display: block;
+  border: solid 1px #e2e2e2;
+  border-top: none;
 }
 grid grid-cell,
-grid grid-header {
+grid grid-header-item {
   display: block;
   padding: 10px;
   box-sizing: border-box;
-  border-bottom: 1px inset #ddd;
-  text-overflow: ellipsis;
   overflow: hidden;
-  white-space: nowrap;
 }
 grid grid-cell {
   height: 100%;
+  cursor: pointer;
+}
+grid grid-cell:hover {
+  border-radius: 5px;
+  z-index: 9800;
 }
 grid grid-sort-header {
   display: block;
@@ -1199,29 +1215,32 @@ core-list {
   transform: rotate(180deg);
   content: "\25be";
   display: inline-block;
+  cursor: pointer;
+}
+[sort]:before {
+  content: "\2b0d";
+  cursor: pointer;
 }
 [sort-desc]:before {
   content: "\25be";
+  cursor: pointer;
 }
 </style>
-
     <!-- content select out the overrides for default cell renderers -->    
     <content id="cell-default-override" select="[cell-default]"></content>
     <content id="columnOverrides" select="[column]"></content>
-         
     <template id="header-default">
-      <grid-header flex="">
+      <grid-header-item flex="">
         <grid-sort-header sortprop="{{header}}" active="true" col="{{header}}">
           {{ header }} 
           <grid-sort-icon sort-icon=""></grid-sort-icon>          
         </grid-sort-header>
-      </grid-header>
+      </grid-header-item>
     </template>
-
     <template id="row-default">
       <grid-row horizontal="" layout="" style="height: {{ rowheight }}px;">
         <template repeat="{{ key in row | keys | remove(ignoredcols) }}">
-          <grid-cell flex="">
+          <grid-cell flex="" title="{{ row[key] }}" class="{{key}}">
             <template ref="{{userDefinedTemplates | findTemplate(key)}}" bind="{{}}"></template>
           </grid-cell>
         </template>
@@ -1235,8 +1254,8 @@ core-list {
     <grid>                
       <grid-header horizontal="" layout="">
         <template repeat="{{ header in headers | remove(_ignoredcols) }}" ref="header-default"></template>        
-      </grid-header>      
-      <grid-body>            
+      </grid-header> 
+      <grid-body class="{{ rowheightDef | getRowheightDefined}}">  
         <core-list data="{{ _value }}" height="{{ rowheight }}">
           <template ref="row-default"></template>
         </core-list>      
@@ -1272,6 +1291,14 @@ PolymerExpressions.prototype.findTemplate = function(userDefinedTemplates, key) 
     }
   });
   return cellTemplate;
+};
+
+PolymerExpressions.prototype.getRowheightDefined = function(val) {
+  if (this.rowheightDef === true) {
+    return 'rowheightDefined';
+  } else {
+    return '';
+  }
 };
 
 Polymer('grid-sort-icon', {});
@@ -1382,7 +1409,10 @@ Polymer('ui-table', {
     }
     return this.rebuildValue();
   },
-  rowheightChanged: function() {
+  rowheightChanged: function(oldVal, newVal) {
+    if (!this._rowheight) {
+      this._rowheight = newVal ? newVal : -1;
+    }
     return this.rebuildValue();
   },
   valueChanged: function() {
