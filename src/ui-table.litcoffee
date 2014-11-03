@@ -18,9 +18,6 @@ elements and `ui-table` managed elements.
       
       cellTemplate
 
-    PolymerExpressions.prototype.getRowheightDefined = (val) ->
-      if @rowheightDef == true then return 'rowheightDefined' else return ''
-
     
 #grid-sort-icon
 Reactive icon for the current sort direction on the `grid-sort-header`

@@ -1082,10 +1082,6 @@ grid-header {
   font-weight: bold;
   height: 38px;
 }
-.rowheightDefined grid-cell {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
 grid {
   display: block;
   height: 100%;
@@ -1106,6 +1102,8 @@ grid grid-header-item {
   padding: 10px;
   box-sizing: border-box;
   overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 grid grid-cell {
   height: 100%;
@@ -1150,7 +1148,7 @@ core-list {
 
 </polymer-element>
 
-<polymer-element name="ui-table" attributes="value sort url rowheightDef rowheight src ignoredcols headers" on-grid-sort="{{sortColumn}}">
+<polymer-element name="ui-table" attributes="value sort url rowheight src ignoredcols headers" on-grid-sort="{{sortColumn}}">
     
   <template>
     <style>:host {
@@ -1164,10 +1162,6 @@ grid-header {
   text-transform: capitalize;
   font-weight: bold;
   height: 38px;
-}
-.rowheightDefined grid-cell {
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
 grid {
   display: block;
@@ -1189,6 +1183,8 @@ grid grid-header-item {
   padding: 10px;
   box-sizing: border-box;
   overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 grid grid-cell {
   height: 100%;
@@ -1255,7 +1251,7 @@ core-list {
       <grid-header horizontal="" layout="">
         <template repeat="{{ header in headers | remove(_ignoredcols) }}" ref="header-default"></template>        
       </grid-header> 
-      <grid-body class="{{ rowheightDef | getRowheightDefined}}">  
+      <grid-body>  
         <core-list data="{{ _value }}" height="{{ rowheight }}">
           <template ref="row-default"></template>
         </core-list>      
@@ -1291,14 +1287,6 @@ PolymerExpressions.prototype.findTemplate = function(userDefinedTemplates, key) 
     }
   });
   return cellTemplate;
-};
-
-PolymerExpressions.prototype.getRowheightDefined = function(val) {
-  if (this.rowheightDef === true) {
-    return 'rowheightDefined';
-  } else {
-    return '';
-  }
 };
 
 Polymer('grid-sort-icon', {});

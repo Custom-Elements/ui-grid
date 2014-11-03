@@ -38,7 +38,7 @@
 
 </polymer-element>
 
-<polymer-element name="ui-table" attributes="value sort url rowheightDef rowheight src ignoredcols headers" on-grid-sort="{{sortColumn}}">
+<polymer-element name="ui-table" attributes="value sort url rowheight src ignoredcols headers" on-grid-sort="{{sortColumn}}">
     
   <template>
     <link rel="stylesheet" type="text/css" href="./ui-table.less">
@@ -71,7 +71,7 @@
       <grid-header horizontal layout>
         <template repeat="{{ header in headers | remove(_ignoredcols) }}" ref="header-default"></template>        
       </grid-header> 
-      <grid-body class="{{ rowheightDef | getRowheightDefined}}">  
+      <grid-body>  
         <core-list data="{{ _value }}" height="{{ rowheight }}">
           <template ref="row-default"></template>
         </core-list>      
