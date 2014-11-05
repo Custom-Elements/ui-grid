@@ -55,7 +55,13 @@ grid {
   }
 
   grid-sort-header {
-    display:block;    
+    display: flex;
+    justify-content: space-between;
+    div{
+      overflow: hidden;
+      white-space: nowrap; 
+      text-overflow: ellipsis;
+    }
   }
 
   grid-sort-icon {

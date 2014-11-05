@@ -1115,7 +1115,13 @@ grid grid-cell:hover {
   z-index: 9800;
 }
 grid grid-sort-header {
-  display: block;
+  display: flex;
+  justify-content: space-between;
+}
+grid grid-sort-header div {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 grid grid-sort-icon {
   float: right;
@@ -1197,7 +1203,13 @@ grid grid-cell:hover {
   z-index: 9800;
 }
 grid grid-sort-header {
-  display: block;
+  display: flex;
+  justify-content: space-between;
+}
+grid grid-sort-header div {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 grid grid-sort-icon {
   float: right;
@@ -1230,7 +1242,9 @@ core-list {
     <template id="header-default">
       <grid-header-item flex="">
         <grid-sort-header sortprop="{{header}}" active="true" col="{{header}}">
-          {{ header }} 
+          <div>
+            {{ header }}
+          </div> 
           <grid-sort-icon sort-icon=""></grid-sort-icon>          
         </grid-sort-header>
       </grid-header-item>

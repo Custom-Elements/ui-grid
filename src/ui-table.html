@@ -48,7 +48,9 @@
     <template id="header-default">
       <grid-header-item flex>
         <grid-sort-header sortprop="{{header}}" active="true" col="{{header}}">
-          {{ header }} 
+          <div>
+            {{ header }}
+          </div> 
           <grid-sort-icon sort-icon></grid-sort-icon>          
         </grid-sort-header>
       </grid-header-item>
