@@ -1106,13 +1106,14 @@ grid grid-header-item {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+grid grid-cell:hover,
+grid grid-header-item:hover {
+  border-radius: 5px;
+  z-index: 9800;
+}
 grid grid-cell {
   height: 100%;
   cursor: pointer;
-}
-grid grid-cell:hover {
-  border-radius: 5px;
-  z-index: 9800;
 }
 grid grid-sort-header {
   display: flex;
@@ -1194,13 +1195,14 @@ grid grid-header-item {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+grid grid-cell:hover,
+grid grid-header-item:hover {
+  border-radius: 5px;
+  z-index: 9800;
+}
 grid grid-cell {
   height: 100%;
   cursor: pointer;
-}
-grid grid-cell:hover {
-  border-radius: 5px;
-  z-index: 9800;
 }
 grid grid-sort-header {
   display: flex;
@@ -1240,7 +1242,7 @@ core-list {
     <content id="cell-default-override" select="[cell-default]"></content>
     <content id="columnOverrides" select="[column]"></content>
     <template id="header-default">
-      <grid-header-item flex="">
+      <grid-header-item flex="" title="{{header}}">
         <grid-sort-header sortprop="{{header}}" active="true" col="{{header}}">
           <div>
             {{ header }}

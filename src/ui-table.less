@@ -42,16 +42,15 @@ grid {
     overflow: hidden;
     white-space: nowrap; 
     text-overflow: ellipsis;
+    &:hover {
+      border-radius: 5px;
+      z-index: 9800;
+    }
   }
 
   grid-cell {
     height: 100%;
     cursor: pointer;
-  }
-
-  grid-cell:hover {
-    border-radius: 5px;
-    z-index: 9800;
   }
 
   grid-sort-header {
