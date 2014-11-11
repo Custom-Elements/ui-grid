@@ -1311,19 +1311,31 @@ Polymer('grid-sort-icon', {});
 
 Polymer('grid-cell', {
   cellClicked: function() {
-    return this.fire('grid-cell-click', this.templateInstance.model);
+    return this.fire('gridCellClick', {
+      cellInfo: this.templateInstance.model,
+      originElem: this
+    });
   },
   cellDoubleClicked: function() {
-    return this.fire('grid-cell-double-click', this.templateInstance.model);
+    return this.fire('gridCellDoubleClick', {
+      cellInfo: this.templateInstance.model,
+      originElem: this
+    });
   }
 });
 
 Polymer('grid-header', {
   headerClicked: function() {
-    return this.fire('grid-header-click', this.templateInstance.model);
+    return this.fire('grid-header-click', {
+      cellInfo: this.templateInstance.model,
+      originElem: this
+    });
   },
   headerDoubleClicked: function() {
-    return this.fire('grid-header-double-click', this.templateInstance.model);
+    return this.fire('grid-header-double-click', {
+      cellInfo: this.templateInstance.model,
+      originElem: this
+    });
   }
 });
 

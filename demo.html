@@ -33,14 +33,17 @@
 
   <script>
     
+    
     document.addEventListener('polymer-ready', function() {      
       var table = document.querySelector('ui-table');
       table.transformResponse = function(a){
         return a;
       }
-      document.addEventListener('grid-cell-click', function(e){
+
+      document.addEventListener('gridCellClick', function(e){
         console.log (e);
       })
+      
       document.addEventListener('grid-cell-double-click', function(e){
         console.log (e);
       })

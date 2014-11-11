@@ -30,10 +30,10 @@ Light wrapper for cell element
     Polymer 'grid-cell', 
 
       cellClicked: ->
-        @fire 'grid-cell-click', @templateInstance.model
+        @fire 'gridCellClick', {cellInfo: @templateInstance.model, originElem: @}
 
       cellDoubleClicked: ->            
-        @fire 'grid-cell-double-click', @templateInstance.model
+        @fire 'gridCellDoubleClick', {cellInfo: @templateInstance.model, originElem: @}
 
 #grid-header
 Light wrapper for cell element
@@ -41,10 +41,10 @@ Light wrapper for cell element
     Polymer 'grid-header', 
 
       headerClicked: ->
-        @fire 'grid-header-click', @templateInstance.model
+        @fire 'grid-header-click', {cellInfo: @templateInstance.model, originElem: @}
 
       headerDoubleClicked: ->            
-        @fire 'grid-header-double-click', @templateInstance.model
+        @fire 'grid-header-double-click', {cellInfo: @templateInstance.model, originElem: @}
 
 #grid-sort-header
 An element to handle sorting of a particular column and upating a its sort icon
