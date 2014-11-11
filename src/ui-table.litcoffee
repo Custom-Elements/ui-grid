@@ -41,10 +41,10 @@ Light wrapper for cell element
     Polymer 'grid-header', 
 
       headerClicked: ->
-        @fire 'grid-header-click', {cellInfo: @templateInstance.model, originElem: @}
+        @fire 'gridHeaderClick', {cellInfo: @templateInstance.model, originElem: @}
 
       headerDoubleClicked: ->            
-        @fire 'grid-header-double-click', {cellInfo: @templateInstance.model, originElem: @}
+        @fire 'gridHeaderDoubleClick', {cellInfo: @templateInstance.model, originElem: @}
 
 #grid-sort-header
 An element to handle sorting of a particular column and upating a its sort icon
@@ -152,7 +152,7 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
         @rebuildValue()
         @rebuildHeader()
         @applySort()
-        @fire 'grid-value-changed', {tableId: @id}
+        @fire 'gridValueChanged', {tableId: @id}
 
       updateValue: (event) ->  
         res = event.detail.response

@@ -1326,13 +1326,13 @@ Polymer('grid-cell', {
 
 Polymer('grid-header', {
   headerClicked: function() {
-    return this.fire('grid-header-click', {
+    return this.fire('gridHeaderClick', {
       cellInfo: this.templateInstance.model,
       originElem: this
     });
   },
   headerDoubleClicked: function() {
-    return this.fire('grid-header-double-click', {
+    return this.fire('gridHeaderDoubleClick', {
       cellInfo: this.templateInstance.model,
       originElem: this
     });
