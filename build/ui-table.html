@@ -1437,7 +1437,7 @@ Polymer('ui-table', {
     this.rebuildValue();
     this.rebuildHeader();
     this.applySort();
-    return this.fire('grid-value-changed', {
+    return this.fire('gridValueChanged', {
       tableId: this.id
     });
   },
