@@ -2,8 +2,8 @@
 
 <html>
   <head>
-    <title>ui-grid</title>    
-    <script src="bower_components/platform/platform.js"></script>
+    <title>ui-grid</title>
+    
     <link rel="import" href="bower_components/polymer/polymer.html">
     <link rel="import" href="build/ui-table.html">
   </head>
@@ -23,12 +23,7 @@
   </style>
     
   <body>
-      <ui-table id="table" rowheight="40" ignoredcols="CouncilMemberId" src="http://localhost:3200/councilMember/getkeyExecutiveCouncilMembers.mustache">
-        <template column name="Name">
-          <a href="http://www.google.com?id={{row.CouncilMemberId}}" target="#">{{row.Name}}</a>
-        </template>
-      </ui-table>      
-    
+      <ui-table id="table"></ui-table>    
   </body>
 
   <script>
@@ -36,38 +31,25 @@
     
     document.addEventListener('polymer-ready', function() {      
       var table = document.querySelector('ui-table');
-      table.transformResponse = function(a){
-        return a;
-      }
-
-      document.addEventListener('gridCellClick', function(e){
-        console.log (e);
-      })
       
-      document.addEventListener('gridCellDoubleClick', function(e){
-        console.log (e);
-      })
-      document.addEventListener('gridValueChanged', function(e){
-        console.log (e);
-      })
-      // var startTime = new Date();
-      // console.log('generating data');
+      var startTime = new Date();
+      console.log('generating data');
       
-      // var data = [];
+      var data = [];
       
-      // for (var i = 0; i < 1000000; i++) {
-      //   var keys = [ 'a', 'b', 'c', 'd', 'e', 'f' ];
-      //   var row = keys.reduce(function(acc,key,j) {
-      //     acc[key] = key+i;
-      //     return acc;
-      //   },[])
+      for (var i = 0; i < 10000; i++) {
+        var keys = [ 'a', 'b', 'c', 'd', 'e', 'f' ];
+        var row = keys.reduce(function(acc,key,j) {
+          acc[key] = key+i;
+          return acc;
+        },[])
         
-      //   data.push(row);
-      // }    
+        data.push(row);
+      }    
       
-      // console.log('generating data done',  (new Date().getTime() - startTime.getTime()) / 1000);        
+      console.log('generating data done',  (new Date().getTime() - startTime.getTime()) / 1000);        
       
-      // table.value = data;  
+      table.value = data;  
       
     })
   </script>

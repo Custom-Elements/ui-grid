@@ -14,9 +14,8 @@
     "test",
     "tests"
   ],
-  "dependencies": {
-    "core-splitter": "Polymer/core-splitter#0.4.1",
-    "core-ajax": "Polymer/core-ajax#0.4.1",
-    "core-list": "Polymer/core-list#0.4.1"
-  }
+  "dependencies": {    
+    "core-ajax": "Polymer/core-ajax#0.5.1",
+    "core-list": "Polymer/core-list#0.5.1"
+  } 
 }
