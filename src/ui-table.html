@@ -42,9 +42,12 @@
     
   <template>
     <link rel="stylesheet" type="text/css" href="./ui-table.less">
-    <!-- content select out the overrides for default cell renderers -->    
+    
+    <!-- content select out the overrides for default cell renderers -->      
     <content id="cell-default-override" select="[cell-default]"></content>
-    <content id="columnOverrides" select="[column]"></content>
+    
+    <content id="column-override" select="[column]"></content>
+
     <template id="header-default">
       <grid-header-item flex title="{{header}}">
         <grid-sort-header sortprop="{{header}}" active="true" col="{{header}}">
@@ -55,6 +58,7 @@
         </grid-sort-header>
       </grid-header-item>
     </template>
+    
     <template id="row-default">
       <grid-row horizontal layout style="height: {{ rowheight }}px;">
         <template repeat="{{ key in row | keys | remove(ignoredcols) }}">

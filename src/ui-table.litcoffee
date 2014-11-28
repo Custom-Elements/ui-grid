@@ -214,13 +214,11 @@ Internal function to port the user defined templates
           @shadowRoot.appendChild t
 
 
-      
-
 ### ready()
 Reads cell and header templates once component is ready for use.
 
       ready: ->
-        @addTemplates @$.columnOverrides, 'column'
+        @addTemplates @$['column-override'], 'column'
         @userDefinedTemplates = @shadowRoot.querySelectorAll 'template[column]'
 
         cellDefaultOverride = @$['cell-default-override']
