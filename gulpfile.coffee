@@ -8,6 +8,7 @@ coffee = require 'gulp-coffee'
 gutil = require 'gulp-util'
 sourcemaps = require 'gulp-sourcemaps'
 rm = require 'gulp-rm'
+connect = require 'gulp-connect'
 
 src ='./src'
 dest = 'build/'
@@ -35,7 +36,7 @@ gulp.task 'rename', ['litcoffee'], ->
 
 gulp.task 'vulcanize', ['rename', 'less'], ->
   gulp.src 'build/*.html'
-    .pipe vulcanize({ dest: dest, strip: true, inline: true })
+    .pipe vulcanize({ dest: dest, strip: true, inline: true })    
     .pipe gulp.dest dest
 
 gulp.task 'prepare-build', ['vulcanize'], ->
@@ -46,6 +47,13 @@ gulp.task 'clean', ->
   gulp.src 'build/*'
     .pipe rm()
 
+gulp.task 'connect', ->
+  connect.server
+    root: '.'
+    livereload: true
+
 gulp.task 'default', ['prepare-build']
-gulp.task 'watch', -> 
+gulp.task 'watch', ['default', 'connect'], -> 
   gulp.watch("#{src}/**", ['prepare-build'])
+    .on 'change', ->
+      connect.reload()

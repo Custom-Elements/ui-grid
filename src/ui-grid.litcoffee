@@ -4,20 +4,12 @@ In this case it would be ui-table.  So we share the filters between `core-list` 
 elements and `ui-table` managed elements.
 
     PolymerExpressions.prototype.keys = (o) ->
+      return unless o #weird timing issues 
       Object.keys(o)
 
     PolymerExpressions.prototype.remove = (arr, remove) ->      
       return arr unless arr?.length and remove?.length
-      arr.filter (a) -> !!remove.indexOf a 
-
-    PolymerExpressions.prototype.findTemplate = (userDefinedTemplates, key) ->
-      cellTemplate = 'cell-default'
-      userDefinedTemplates.array().forEach (i)->
-        if i.getAttribute('name') == key
-          cellTemplate = "#{key}-column"
-      
-      cellTemplate
-
+      arr.filter (a) -> !!remove.indexOf a  
     
 #grid-sort-icon
 Reactive icon for the current sort direction on the `grid-sort-header`
@@ -30,10 +22,10 @@ Light wrapper for cell element
     Polymer 'grid-cell', 
 
       cellClicked: ->
-        @fire 'gridCellClick', {cellInfo: @templateInstance.model, originElem: @}
+        @fire 'cellclick', @templateInstance.model          
 
       cellDoubleClicked: ->            
-        @fire 'gridCellDoubleClick', {cellInfo: @templateInstance.model, originElem: @}
+        @fire 'celldblclick', @templateInstance.model
 
 #grid-header
 Light wrapper for cell element
@@ -41,10 +33,10 @@ Light wrapper for cell element
     Polymer 'grid-header', 
 
       headerClicked: ->
-        @fire 'gridHeaderClick', {cellInfo: @templateInstance.model, originElem: @}
+        @fire 'headerclick', @templateInstance.model
 
       headerDoubleClicked: ->            
-        @fire 'gridHeaderDoubleClick', {cellInfo: @templateInstance.model, originElem: @}
+        @fire 'headerdblclick', @templateInstance.model
 
 #grid-sort-header
 An element to handle sorting of a particular column and upating a its sort icon
@@ -95,34 +87,34 @@ then it will suppress `applySort()` from dispatching its event.
         @active = true        
 
 
-#ui-table 
+#ui-grid 
 An element that allows you define templates for keys in rows of data and then builds
 out a table for you.  Also responds to sorting events that can be dispatched by children.
 
-    Polymer 'ui-table',
+    Polymer 'ui-grid',
 
 ### sortFunctions
-Comparators for native sort function. These can be overidden though I do not recommend it.
+Comparators for native sort function.
 
       sortFunctions:
         asc: (a,b) ->
-          return 1 if a is undefined or a is '' or a is null
-          return -1 if b is undefined or b is '' or b is null
-          if typeof(a) is 'string'
-            a = a.toLowerCase().trim()
-          if typeof(b) is 'string'
-            b = b.toLowerCase().trim()
+          return 1 if !a? or a is ''
+          return -1 if !b? or b is ''
+          
+          a = a.toLowerCase().trim() if typeof(a) is 'string'          
+          b = b.toLowerCase().trim() if typeof(b) is 'string'
+            
           return 1 if a > b
           return -1 if a < b
           return 0
 
         desc: (a,b) -> 
-          return 1 if a is undefined or a is '' or a is null
-          return -1 if b is undefined or b is '' or b is null
-          if typeof(a) is 'string'
-            a = a.toLowerCase().trim()
-          if typeof(b) is 'string'
-            b = b.toLowerCase().trim()
+          return 1 if !a? or a is ''
+          return -1 if !b? or b is ''
+          
+          a = a.toLowerCase().trim() if typeof(a) is 'string'            
+          b = b.toLowerCase().trim() if typeof(b) is 'string'
+            
           return 1 if a < b
           return -1 if a > b
           return 0
@@ -138,21 +130,17 @@ The `sort` property can be changed externally on the node or defined on your tem
 When the value is changed it also builds out the headers off of the first row
 in the `value` property.  This is likely to change. Sorting is also applied if applicable 
       
-      ignoredcolsChanged: ->   
-        @_ignoredcols = @ignoredcols
-        @_ignoredcols = @ignoredcols.split(',') if typeof(@ignoredcols) == 'string'        
+      ignoredcolsChanged: ->           
+        @ignoredcols = @ignoredcols.split(',') if typeof(@ignoredcols) == 'string'        
         @rebuildValue()
 
-      rowheightChanged: (oldVal, newVal)->
-        if !@_rowheight
-          @_rowheight = if newVal then newVal else -1
-        @rebuildValue()
+      valueChanged: ->                
+        @headers = @buildHeaderModel()
 
-      valueChanged: -> 
-        @rebuildValue()
-        @rebuildHeader()
+        @removeStaleTemplateRefs()
+        @buildTemplateRefs()
+        
         @applySort()
-        @fire 'gridValueChanged', {tableId: @id}
 
       updateValue: (event) ->  
         res = event.detail.response
@@ -160,15 +148,38 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
           return @value = @transformResponse res
         @value = res
 
-      rebuildValue: ->  
-        @_value = (@value || []).slice(0).map (v,k) =>
-          { row: v, rowheight: @rowheight, ignoredcols: @_ignoredcols , userDefinedTemplates: @userDefinedTemplates, tableId: @id}        
-
-      rebuildHeader: ->
-        @headers = Object.keys @_value.reduce (acc, wrapped) ->         
-          Object.keys(wrapped.row).forEach (k) -> acc[k] = true 
+      buildHeaderModel: ->
+        return null unless @value?.length
+        Object.keys @value.reduce (acc, wrapped) ->         
+          Object.keys(wrapped).forEach (k) -> acc[k] = true 
           acc
         , {}
+
+      buildTemplateRefs: ->
+        
+
+        columns = @headers
+
+        overrideTemplate = @$['column-override'].getDistributedNodes().array()
+        overriddenColumns = overrideTemplate.map (t) -> t.getAttribute 'name'
+        overriddenColumns.forEach (o) =>
+          col = o.getAttribute 'name'          
+          o.setAttribute 'id', "#{col}-#{type}"
+          o.setAttribute 'removable', ''
+          @shadowRoot.appendChild t
+        
+        usesDefault = columns.filter (i) -> overriddenColumns.indexOf(i) < 0        
+        usesDefault.forEach (col) =>
+          t = document.createElement 'template'          
+          t.setAttribute 'id', "column-#{col}"
+          t.setAttribute 'removable', ''
+          t.setAttribute 'ref', 'column-default'          
+          @shadowRoot.appendChild t
+
+      removeStaleTemplateRefs: ->
+        @$['[removable]']?.array().forEach (t) =>
+          @shadowRoot.removeChild t
+
 
 ### sortColumn()
 Change handler for the `grid-sort` event that is dispatched by child elements
@@ -192,45 +203,31 @@ Internal function that syncs `@_value` and `@sort`.  It updates the header state
 and sorts the internal databound collection.
 
       applySort: ->       
-        return unless @_value and @sort
+        return unless @value and @sort
 
         @updateHeaders()
 
-        @_value.sort (a,b) =>        
+        @value.sort (a,b) =>        
           d = @sort
           compare = @sortFunctions[d.direction]                  
-          left = @propParser a.row, d.prop
-          right = @propParser b.row, d.prop
+          left = @propParser a, d.prop
+          right = @propParser b, d.prop
 
           compare left, right
 
-### addTemplates(nodes, type)
-Internal function to port the user defined templates
-      
-      addTemplates: (nodes, type) ->
-        nodes.getDistributedNodes().array().forEach (t)=>
-          col = t.getAttribute 'name'
-          t.setAttribute 'id', "#{col}-#{type}"
-          @shadowRoot.appendChild t
-
-
 ### ready()
-Reads cell and header templates once component is ready for use.
+Reads cell defaut and swaps out template is necessary.
 
       ready: ->
-        @addTemplates @$['column-override'], 'column'
-        @userDefinedTemplates = @shadowRoot.querySelectorAll 'template[column]'
+        colDefault = @$['column-default-override']
+          .getDistributedNodes().array()?[0]    
 
-        cellDefaultOverride = @$['cell-default-override']
-          .getDistributedNodes().array()?[0]        
-
-        if cellDefaultOverride
-          @shadowRoot.removeChild @$['cell-default']
-
+        if colDefault
+          @shadowRoot.removeChild @$['column-default']
           t = document.createElement 'template'
-          t.setAttribute 'id', 'cell-default'
+          t.setAttribute 'id', 'column'
           t.innerHTML = cellDefaultOverride.innerHTML
-          @shadowRoot.appendChild t
+          @shadowRoot.appendChild t        
                        
   
 ### propParser(doc,prop):*
@@ -240,4 +237,4 @@ in the object for the nested property.
       propParser: (doc, prop) ->        
         prop.split('.').reduce (acc, p) -> 
           acc[p]
-        , doc
+        , doc      

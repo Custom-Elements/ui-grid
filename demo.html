@@ -2,10 +2,10 @@
 
 <html>
   <head>
-    <title>ui-grid</title>
-    
-    <link rel="import" href="bower_components/polymer/polymer.html">
-    <link rel="import" href="build/ui-table.html">
+    <title>ui-grid</title>    
+    <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+    <script>debugger</script>
+    <link rel="import" href="build/ui-grid.html">
   </head>
 
   <style>
@@ -17,37 +17,28 @@
     ui-table {
       height: 100%;
     }
-    ui-table /deep/ .Email {
-      word-break: break-all;
-    }
+
   </style>
     
   <body>
-      <ui-table id="table"></ui-table>    
+    <ui-grid id="table" rowheight="30"></ui-grid>        
   </body>
 
-  <script>
-    
-    
+  <script>    
     document.addEventListener('polymer-ready', function() {      
-      var table = document.querySelector('ui-table');
-      
-      var startTime = new Date();
-      console.log('generating data');
-      
+      var table = document.querySelector('#table');
+           
       var data = [];
       
-      for (var i = 0; i < 10000; i++) {
+      for (var i = 0; i < 1000; i++) {
         var keys = [ 'a', 'b', 'c', 'd', 'e', 'f' ];
         var row = keys.reduce(function(acc,key,j) {
-          acc[key] = key+i;
+          acc[key] = key+i+'kajsdfjkasdfj askjdfhaksj asd fkjasdhfkas df sadkflhjasdfk asdf aksdhflksadf asdhf adshfka';
           return acc;
-        },[])
+        },{})
         
         data.push(row);
-      }    
-      
-      console.log('generating data done',  (new Date().getTime() - startTime.getTime()) / 1000);        
+      }          
       
       table.value = data;  
       
