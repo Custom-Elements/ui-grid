@@ -22,7 +22,7 @@ Light wrapper for cell element
     Polymer 'grid-cell', 
 
       cellClicked: ->
-        @fire 'cellclick', @templateInstance.model          
+        @fire 'cellclick', @templateInstance.model        
 
       cellDoubleClicked: ->            
         @fire 'celldblclick', @templateInstance.model
@@ -84,7 +84,7 @@ then it will suppress `applySort()` from dispatching its event.
 
       toggleDirection: (event, detail, element) ->        
         @direction = if @direction == 'asc' then 'desc' else 'asc'                
-        @active = true        
+        @active = true
 
 
 #ui-grid 
@@ -132,7 +132,7 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
       
       ignoredcolsChanged: ->           
         @ignoredcols = @ignoredcols.split(',') if typeof(@ignoredcols) == 'string'        
-        @rebuildValue()
+        @valueChanged()
 
       valueChanged: ->                
         @headers = @buildHeaderModel()
@@ -155,9 +155,7 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
           acc
         , {}
 
-      buildTemplateRefs: ->
-        
-
+      buildTemplateRefs: ->    
         columns = @headers
 
         overrideTemplate = @$['column-override'].getDistributedNodes().array()

@@ -21,7 +21,7 @@
   </style>
     
   <body>
-    <ui-grid id="table" rowheight="30"></ui-grid>        
+    <ui-grid id="table" rowheight="30"></ui-grid>
   </body>
 
   <script>    
@@ -33,15 +33,25 @@
       for (var i = 0; i < 1000; i++) {
         var keys = [ 'a', 'b', 'c', 'd', 'e', 'f' ];
         var row = keys.reduce(function(acc,key,j) {
-          acc[key] = key+i+'kajsdfjkasdfj askjdfhaksj asd fkjasdhfkas df sadkflhjasdfk asdf aksdhflksadf asdhf adshfka';
+          acc[key] = key+i;
           return acc;
         },{})
         
         data.push(row);
       }          
       
-      table.value = data;  
-      
+      table.value = data; 
+
+      var events = [
+        'cellclick',
+        'celldblclick',
+        'headerclick',
+        'headerdblclick'
+      ]
+
+      events.forEach(function (event) {
+        table.addEventListener(event, function() { console.log(arguments) });  
+      });
     })
   </script>
 </html>
