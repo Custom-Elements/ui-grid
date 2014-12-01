@@ -10,7 +10,7 @@ sourcemaps = require 'gulp-sourcemaps'
 rm = require 'gulp-rm'
 connect = require 'gulp-connect'
 
-src ='./src'
+src = './src'
 dest = 'build/'
 
 gulp.task 'litcoffee', ->

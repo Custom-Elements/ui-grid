@@ -42,9 +42,9 @@ Light wrapper for cell element
 An element to handle sorting of a particular column and upating a its sort icon
 if present.
 
-    Polymer 'grid-sort-header',
+    Polymer 'grid-sort-header',    
 
-### Change handlers
+## Change handlers
 Handlers that attempt to sync and only dispatch one event by calling `applySort()`.
 
       directionChanged: ->      
@@ -57,14 +57,14 @@ Handlers that attempt to sync and only dispatch one event by calling `applySort(
       colChanged: ->              
         @applySort()
 
-### updateIcon()
+## updateIcon()
 Call this to sync your sort icon with the current state
 
       updateIcon: ->
         sortIcon = @querySelector '[sort-icon]'
         sortIcon?.setAttribute 'direction', @direction        
 
-### applySort()
+## applySort()
 Syncs `direction`,`sortprop`,`col` and `active`, if they are unset or falsey
 no event is dispatched.
 
@@ -78,7 +78,7 @@ _Dispatches:_ `'grid-sort', { direction, prop, col }`
           prop: @sortprop
           col: @col    
 
-### toggleDirection()
+## toggleDirection()
 Event handler for when the header is clicked.  If the header is not active
 then it will suppress `applySort()` from dispatching its event.
 
@@ -93,7 +93,7 @@ out a table for you.  Also responds to sorting events that can be dispatched by 
 
     Polymer 'ui-grid',
 
-### sortFunctions
+## sortFunctions
 Comparators for native sort function.
 
       sortFunctions:
@@ -119,14 +119,14 @@ Comparators for native sort function.
           return -1 if a > b
           return 0
 
-### Change handlers
+## Change handlers
 
-### sortChanged()
+## sortChanged()
 The `sort` property can be changed externally on the node or defined on your templates elements.
 
       sortChanged: -> @applySort()   
 
-### valueChanged()
+## valueChanged()
 When the value is changed it also builds out the headers off of the first row
 in the `value` property.  This is likely to change. Sorting is also applied if applicable 
       
@@ -162,7 +162,7 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
         overriddenColumns = overrideTemplate.map (t) -> t.getAttribute 'name'
         overriddenColumns.forEach (o) =>
           col = o.getAttribute 'name'          
-          o.setAttribute 'id', "#{col}-#{type}"
+          o.setAttribute 'id', "#column-#{col}"
           o.setAttribute 'removable', ''
           @shadowRoot.appendChild t
         
@@ -179,13 +179,13 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
           @shadowRoot.removeChild t
 
 
-### sortColumn()
+## sortColumn()
 Change handler for the `grid-sort` event that is dispatched by child elements
 
       sortColumn: (event, descriptor) ->             
         @sort = descriptor      
 
-### updateHeaders()
+## updateHeaders()
 Internal function that find all of the child sortable headers and attempts to 
 reset their `direction` if they are not active.  For now only single column sort is handled.
 
@@ -196,7 +196,7 @@ reset their `direction` if they are not active.  For now only single column sort
             sortable.setAttribute 'active', false
             sortable.direction = ''                     
 
-### applySort()
+## applySort()
 Internal function that syncs `@_value` and `@sort`.  It updates the header states
 and sorts the internal databound collection.
 
@@ -213,7 +213,7 @@ and sorts the internal databound collection.
 
           compare left, right
 
-### ready()
+## ready()
 Reads cell defaut and swaps out template is necessary.
 
       ready: ->
@@ -228,7 +228,7 @@ Reads cell defaut and swaps out template is necessary.
           @shadowRoot.appendChild t        
                        
   
-### propParser(doc,prop):*
+## propParser(doc,prop):*
 Takes a document and dot property string (ex. `'prop1.prop2'`) and returns the value
 in the object for the nested property.
 
