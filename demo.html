@@ -5,22 +5,40 @@
     <title>ui-grid</title>
     <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
     <link rel="import" href="build/ui-grid.html">
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
   </head>
 
   <style>
     html, body {
       height: 100%;
       margin: 0;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      padding: 10px;
     }
 
     ui-grid {
-      height: 100%;
+      width: 800px;
+      height: 400px;
     }
 
+    ui-grid /deep/ grid-header {
+      background-color: #2196F3;
+      color: white;
+      height: 68px;      
+    }
+
+    ui-grid /deep/ [sort] {      
+      color: #1976D2;
+    }
+    
   </style>
 
   <body>
-    <ui-grid id="table" rowheight="30"></ui-grid>
+    <h1>A grid for you!</h1>
+    <ui-grid id="table" rowheight="50" width="600" height="400"></ui-grid>
   </body>
 
   <script>

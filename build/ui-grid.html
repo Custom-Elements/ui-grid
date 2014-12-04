@@ -459,7 +459,7 @@ html /deep/ [segment], html /deep/ segment {
 
 </style>
 
-<script built="/Users/sbazli/github/ui-table/bower_components/polymer/polymer.js">/**
+<script built="/Users/rfairchild/code/ui-grid/bower_components/polymer/polymer.js">/**
  * @license
  * Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
  * This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -12371,9 +12371,9 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<!-- did not import /Users/sbazli/github/ui-table/bower_components/polymer/polymer.html-->
+<!-- did not import /Users/rfairchild/code/ui-grid/bower_components/polymer/polymer.html-->
 
-<script built="/Users/sbazli/github/ui-table/bower_components/polymer/polymer.js"></script>
+<script built="/Users/rfairchild/code/ui-grid/bower_components/polymer/polymer.js"></script>
 
 
 <polymer-element name="core-selection" attributes="multi" hidden>
@@ -13670,9 +13670,9 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<!-- did not import /Users/sbazli/github/ui-table/bower_components/polymer/polymer.html-->
+<!-- did not import /Users/rfairchild/code/ui-grid/bower_components/polymer/polymer.html-->
 
-<script built="/Users/sbazli/github/ui-table/bower_components/polymer/polymer.js"></script>
+<script built="/Users/rfairchild/code/ui-grid/bower_components/polymer/polymer.js"></script>
 
 
 <polymer-element name="core-xhr" hidden>
@@ -14171,7 +14171,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   
   <template>    
     <style>:host {
-  height: 100%;
   display: block;
 }
 [hide] {
@@ -14180,16 +14179,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 grid-header {
   text-transform: capitalize;
   font-weight: bold;
-  height: 38px;
+  height: 68px;
 }
 grid {
   display: block;
   height: 100%;
   font-family: arial;
+  border: solid 1px #e2e2e2;
 }
 grid grid-body {
   display: block;
-  height: calc(100% - 38px );
+  height: calc(100% - 68px );
 }
 grid grid-row {
   display: block;
@@ -14200,7 +14200,7 @@ grid grid-row {
 grid grid-cell,
 grid grid-header-item {
   display: block;
-  padding: 10px;
+  padding: 16px;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -14224,7 +14224,7 @@ core-list {
   height: 100%;
 }
 [sort-desc]:before {
-  content: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
+  content: "\25be";
   cursor: pointer;
 }
 [sort-asc]:before {
@@ -14233,12 +14233,12 @@ core-list {
   -o-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   transform: rotate(180deg);
-  content: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
+  content: "\25be";
   display: inline-block;
   cursor: pointer;
 }
 [sort]:before {
-  content: url(data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==);
+  content: "\25be";
   cursor: pointer;
 }
 </style>    
@@ -14253,7 +14253,6 @@ core-list {
     
   <template>
     <style>:host {
-  height: 100%;
   display: block;
 }
 [hide] {
@@ -14262,16 +14261,17 @@ core-list {
 grid-header {
   text-transform: capitalize;
   font-weight: bold;
-  height: 38px;
+  height: 68px;
 }
 grid {
   display: block;
   height: 100%;
   font-family: arial;
+  border: solid 1px #e2e2e2;
 }
 grid grid-body {
   display: block;
-  height: calc(100% - 38px );
+  height: calc(100% - 68px );
 }
 grid grid-row {
   display: block;
@@ -14282,7 +14282,7 @@ grid grid-row {
 grid grid-cell,
 grid grid-header-item {
   display: block;
-  padding: 10px;
+  padding: 16px;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -14306,7 +14306,7 @@ core-list {
   height: 100%;
 }
 [sort-desc]:before {
-  content: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
+  content: "\25be";
   cursor: pointer;
 }
 [sort-asc]:before {
@@ -14315,12 +14315,12 @@ core-list {
   -o-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   transform: rotate(180deg);
-  content: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
+  content: "\25be";
   display: inline-block;
   cursor: pointer;
 }
 [sort]:before {
-  content: url(data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==);
+  content: "\25be";
   cursor: pointer;
 }
 </style>
@@ -14338,11 +14338,10 @@ core-list {
     </template>
     
     <template id="row-default">
-      <grid-row horizontal="" layout="">                
+      <grid-row horizontal="" layout="" center="">                
         <template repeat="{{key in model | keys }}">
-          <grid-cell flex="" title="{{ model[key] }}" class="{{key}}">          
-            <template ref="column-{{key}}" bind="{{ { model: model, key: key } }}">
-            </template>            
+          <grid-cell flex="" title="{{ model[key] }}" class="{{key}}">
+            <template ref="column-{{key}}" bind="{{ { model: model, key: key } }}"></template>            
           </grid-cell>
         </template>
       </grid-row>
@@ -14353,12 +14352,11 @@ core-list {
     </template>
 
     <grid>                
-      <grid-header horizontal="" layout="">
-        <!-- <template repeat="{{ header in headers | remove(_ignoredcols) }}" ref="header-default"></template>         -->
-        <template repeat="{{ header in headers }}" ref="header-default"></template>        
+      <grid-header horizontal="" layout="" center="">
+        <template repeat="{{header in headers}}" ref="header-default"></template>        
       </grid-header> 
       <grid-body>  
-        <core-list data="{{value}}" height="{{rowheight}}">
+        <core-list data="{{rows}}" height="{{rowheight}}">
           <template ref="row-default"></template>
         </core-list>              
       </grid-body>
@@ -14370,21 +14368,12 @@ core-list {
 
 </polymer-element>
 
-<script built="/Users/sbazli/github/ui-table/src/ui-grid.litcoffee">(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+<script built="/Users/rfairchild/code/ui-grid/src/ui-grid.litcoffee">(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 PolymerExpressions.prototype.keys = function(o) {
   if (!o) {
     return;
   }
   return Object.keys(o);
-};
-
-PolymerExpressions.prototype.remove = function(arr, remove) {
-  if (!((arr != null ? arr.length : void 0) && (remove != null ? remove.length : void 0))) {
-    return arr;
-  }
-  return arr.filter(function(a) {
-    return !!remove.indexOf(a);
-  });
 };
 
 Polymer('grid-sort-icon', {});
@@ -14430,8 +14419,7 @@ Polymer('grid-sort-header', {
     }
     return this.fire('grid-sort', {
       direction: this.direction,
-      prop: this.sortprop,
-      col: this.col
+      prop: this.sortprop
     });
   },
   toggleDirection: function(event, detail, element) {
@@ -14488,17 +14476,14 @@ Polymer('ui-grid', {
   sortChanged: function() {
     return this.applySort();
   },
-  ignoredcolsChanged: function() {
-    if (typeof this.ignoredcols === 'string') {
-      this.ignoredcols = this.ignoredcols.split(',');
-    }
-    return this.valueChanged();
-  },
-  valueChanged: function() {
-    this.headers = this.buildHeaderModel();
+  rowsChanged: function() {
+    var _ref;
     this.removeStaleTemplateRefs();
-    this.buildTemplateRefs();
-    return this.applySort();
+    this.buildTemplateRefs(this.headers);
+    return this.sort || (this.sort = {
+      direction: 'asc',
+      prop: (_ref = this.headers) != null ? _ref[0] : void 0
+    });
   },
   updateValue: function(event) {
     var res;
@@ -14508,21 +14493,21 @@ Polymer('ui-grid', {
     }
     return this.value = res;
   },
-  buildHeaderModel: function() {
-    var _ref;
-    if (!((_ref = this.value) != null ? _ref.length : void 0)) {
-      return null;
-    }
-    return Object.keys(this.value.reduce(function(acc, wrapped) {
+  buildRows: function(value, headers) {
+    return value;
+  },
+  buildHeaders: function(value) {
+    var headers;
+    headers = value != null ? value.reduce(function(acc, wrapped) {
       Object.keys(wrapped).forEach(function(k) {
         return acc[k] = true;
       });
       return acc;
-    }, {}));
+    }, {}) : void 0;
+    return Object.keys(headers || {});
   },
   buildTemplateRefs: function() {
-    var columns, overriddenColumns, overrideTemplate, usesDefault;
-    columns = this.headers;
+    var overriddenColumns, overrideTemplate, usesDefault;
     overrideTemplate = this.$['column-override'].getDistributedNodes().array();
     overriddenColumns = overrideTemplate.map(function(t) {
       return t.getAttribute('name');
@@ -14536,7 +14521,7 @@ Polymer('ui-grid', {
         return _this.shadowRoot.appendChild(t);
       };
     })(this));
-    usesDefault = columns.filter(function(i) {
+    usesDefault = this.headers.filter(function(i) {
       return overriddenColumns.indexOf(i) < 0;
     });
     return usesDefault.forEach((function(_this) {
@@ -14549,6 +14534,17 @@ Polymer('ui-grid', {
         return _this.shadowRoot.appendChild(t);
       };
     })(this));
+  },
+  buildDefaultCellRef: function() {
+    var colDefault, t, _ref;
+    colDefault = (_ref = this.$['column-default-override'].getDistributedNodes().array()) != null ? _ref[0] : void 0;
+    if (colDefault) {
+      this.shadowRoot.removeChild(this.$['column-default']);
+      t = document.createElement('template');
+      t.setAttribute('id', 'column');
+      t.innerHTML = cellDefaultOverride.innerHTML;
+      return this.shadowRoot.appendChild(t);
+    }
   },
   removeStaleTemplateRefs: function() {
     var _ref;
@@ -14566,19 +14562,23 @@ Polymer('ui-grid', {
     sortables = (_ref = this.shadowRoot) != null ? _ref.querySelectorAll("grid-sort-header") : void 0;
     return sortables != null ? sortables.array().forEach((function(_this) {
       return function(sortable) {
-        if (sortable.col !== _this.sort.col) {
+        if (sortable.col !== _this.sort.prop) {
           sortable.setAttribute('active', false);
           return sortable.direction = '';
+        } else {
+          sortable.setAttribute('active', true);
+          return sortable.direction = _this.sort.direction;
         }
       };
     })(this)) : void 0;
   },
   applySort: function() {
-    if (!(this.value && this.sort)) {
+    debugger;
+    if (!(this.rows && this.sort)) {
       return;
     }
     this.updateHeaders();
-    return this.value.sort((function(_this) {
+    return this.rows.sort((function(_this) {
       return function(a, b) {
         var compare, d, left, right;
         d = _this.sort;
@@ -14590,20 +14590,17 @@ Polymer('ui-grid', {
     })(this));
   },
   ready: function() {
-    var colDefault, t, _ref;
-    colDefault = (_ref = this.$['column-default-override'].getDistributedNodes().array()) != null ? _ref[0] : void 0;
-    if (colDefault) {
-      this.shadowRoot.removeChild(this.$['column-default']);
-      t = document.createElement('template');
-      t.setAttribute('id', 'column');
-      t.innerHTML = cellDefaultOverride.innerHTML;
-      return this.shadowRoot.appendChild(t);
-    }
+    this.ignoredcols || (this.ignoredcols = []);
+    return this.buildDefaultCellRef();
   },
   propParser: function(doc, prop) {
     return prop.split('.').reduce(function(acc, p) {
       return acc[p];
     }, doc);
+  },
+  computed: {
+    rows: 'buildRows(value,headers)',
+    headers: 'buildHeaders(value)'
   }
 });
 

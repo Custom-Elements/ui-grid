@@ -6,10 +6,6 @@ elements and `ui-table` managed elements.
     PolymerExpressions.prototype.keys = (o) ->
       return unless o #weird timing issues 
       Object.keys(o)
-
-    PolymerExpressions.prototype.remove = (arr, remove) ->      
-      return arr unless arr?.length and remove?.length
-      arr.filter (a) -> !!remove.indexOf a  
     
 #grid-sort-icon
 Reactive icon for the current sort direction on the `grid-sort-header`
@@ -75,8 +71,7 @@ _Dispatches:_ `'grid-sort', { direction, prop, col }`
         
         @fire 'grid-sort',
           direction: @direction
-          prop: @sortprop
-          col: @col    
+          prop: @sortprop          
 
 ## toggleDirection()
 Event handler for when the header is clicked.  If the header is not active
@@ -130,34 +125,32 @@ The `sort` property can be changed externally on the node or defined on your tem
 When the value is changed it also builds out the headers off of the first row
 in the `value` property.  This is likely to change. Sorting is also applied if applicable 
       
-      ignoredcolsChanged: ->           
-        @ignoredcols = @ignoredcols.split(',') if typeof(@ignoredcols) == 'string'        
-        @valueChanged()
-
-      valueChanged: ->                
-        @headers = @buildHeaderModel()
-
+      rowsChanged: ->
         @removeStaleTemplateRefs()
-        @buildTemplateRefs()
+        @buildTemplateRefs(@headers)
         
-        @applySort()
+        @sort ||= 
+          direction: 'asc'
+          prop: @headers?[0]
 
       updateValue: (event) ->  
         res = event.detail.response
         if @transformResponse
           return @value = @transformResponse res
-        @value = res
+        @value = res        
 
-      buildHeaderModel: ->
-        return null unless @value?.length
-        Object.keys @value.reduce (acc, wrapped) ->         
+      buildRows: (value, headers) ->              
+        value
+
+      buildHeaders: (value) ->        
+        headers = value?.reduce (acc, wrapped) ->         
           Object.keys(wrapped).forEach (k) -> acc[k] = true 
           acc
         , {}
 
-      buildTemplateRefs: ->    
-        columns = @headers
+        Object.keys(headers || {})        
 
+      buildTemplateRefs: ->
         overrideTemplate = @$['column-override'].getDistributedNodes().array()
         overriddenColumns = overrideTemplate.map (t) -> t.getAttribute 'name'
         overriddenColumns.forEach (o) =>
@@ -166,12 +159,23 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
           o.setAttribute 'removable', ''
           @shadowRoot.appendChild t
         
-        usesDefault = columns.filter (i) -> overriddenColumns.indexOf(i) < 0        
+        usesDefault = @headers.filter (i) -> overriddenColumns.indexOf(i) < 0        
         usesDefault.forEach (col) =>
           t = document.createElement 'template'          
           t.setAttribute 'id', "column-#{col}"
           t.setAttribute 'removable', ''
           t.setAttribute 'ref', 'column-default'          
+          @shadowRoot.appendChild t
+
+      buildDefaultCellRef: ->
+        colDefault = @$['column-default-override']
+          .getDistributedNodes().array()?[0]    
+
+        if colDefault
+          @shadowRoot.removeChild @$['column-default']
+          t = document.createElement 'template'
+          t.setAttribute 'id', 'column'
+          t.innerHTML = cellDefaultOverride.innerHTML
           @shadowRoot.appendChild t
 
       removeStaleTemplateRefs: ->
@@ -192,20 +196,24 @@ reset their `direction` if they are not active.  For now only single column sort
       updateHeaders: ->        
         sortables = @shadowRoot?.querySelectorAll "grid-sort-header"                    
         sortables?.array().forEach (sortable) =>               
-          if sortable.col != @sort.col
+          if sortable.col != @sort.prop
             sortable.setAttribute 'active', false
-            sortable.direction = ''                     
+            sortable.direction = ''  
+          else                    
+            sortable.setAttribute 'active', true
+            sortable.direction = @sort.direction
 
 ## applySort()
 Internal function that syncs `@_value` and `@sort`.  It updates the header states
 and sorts the internal databound collection.
 
-      applySort: ->       
-        return unless @value and @sort
+      applySort: ->  
+        debugger     
+        return unless @rows and @sort
 
         @updateHeaders()
 
-        @value.sort (a,b) =>        
+        @rows.sort (a,b) =>        
           d = @sort
           compare = @sortFunctions[d.direction]                  
           left = @propParser a, d.prop
@@ -217,17 +225,9 @@ and sorts the internal databound collection.
 Reads cell defaut and swaps out template is necessary.
 
       ready: ->
-        colDefault = @$['column-default-override']
-          .getDistributedNodes().array()?[0]    
+        @ignoredcols ||= []
+        @buildDefaultCellRef()
 
-        if colDefault
-          @shadowRoot.removeChild @$['column-default']
-          t = document.createElement 'template'
-          t.setAttribute 'id', 'column'
-          t.innerHTML = cellDefaultOverride.innerHTML
-          @shadowRoot.appendChild t        
-                       
-  
 ## propParser(doc,prop):*
 Takes a document and dot property string (ex. `'prop1.prop2'`) and returns the value
 in the object for the nested property.
@@ -235,4 +235,8 @@ in the object for the nested property.
       propParser: (doc, prop) ->        
         prop.split('.').reduce (acc, p) -> 
           acc[p]
-        , doc      
+        , doc  
+
+      computed: 
+        rows: 'buildRows(value,headers)'
+        headers: 'buildHeaders(value)'

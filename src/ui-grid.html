@@ -56,11 +56,10 @@
     </template>
     
     <template id="row-default">
-      <grid-row horizontal layout>                
+      <grid-row horizontal layout center>                
         <template repeat="{{key in model | keys }}">
-          <grid-cell flex title="{{ model[key] }}" class="{{key}}">          
-            <template ref="column-{{key}}" bind="{{ { model: model, key: key } }}">
-            </template>            
+          <grid-cell flex title="{{ model[key] }}" class="{{key}}">
+            <template ref="column-{{key}}" bind="{{ { model: model, key: key } }}"></template>            
           </grid-cell>
         </template>
       </grid-row>
@@ -71,12 +70,11 @@
     </template>
 
     <grid>                
-      <grid-header horizontal layout>
-        <!-- <template repeat="{{ header in headers | remove(_ignoredcols) }}" ref="header-default"></template>         -->
-        <template repeat="{{ header in headers }}" ref="header-default"></template>        
+      <grid-header horizontal layout center>
+        <template repeat="{{header in headers}}" ref="header-default"></template>        
       </grid-header> 
       <grid-body>  
-        <core-list data="{{value}}" height="{{rowheight}}">
+        <core-list data="{{rows}}" height="{{rowheight}}">
           <template ref="row-default"></template>
         </core-list>              
       </grid-body>

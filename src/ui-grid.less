@@ -1,7 +1,6 @@
-@grid-header-height: 38px;
+@grid-header-height: 68px;
 
 :host {
-  height: 100%;
   display: block;
 }
 
@@ -15,13 +14,11 @@ grid-header {
   height: @grid-header-height;
 }
 
-
 grid {
-
-
   display: block; 
   height: 100%;
   font-family:arial;
+  border: solid 1px rgb(226, 226, 226);
 
   grid-body {
     display: block; 
@@ -37,7 +34,7 @@ grid {
 
   grid-cell, grid-header-item {
     display:block;
-    padding: 10px;
+    padding: 16px;
     box-sizing: border-box;
     overflow: hidden;
     
@@ -67,7 +64,7 @@ core-list {
 }
 
 [sort-desc]:before {
-  content: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
+  content: "\25be";
   cursor: pointer;
 }
 
@@ -77,12 +74,12 @@ core-list {
   -o-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   transform: rotate(180deg);
-  content: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
+  content: "\25be";
   display:inline-block;
   cursor: pointer;
 }
 
 [sort]:before {
-  content: url(data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==);
+  content: "\25be";
   cursor: pointer;
 }
