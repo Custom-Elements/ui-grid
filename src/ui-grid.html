@@ -69,12 +69,12 @@
       {{model[key]}}
     </template>
 
-    <grid>                
+    <grid vertical layout>                
       <grid-header horizontal layout center>
         <template repeat="{{header in headers}}" ref="header-default"></template>        
       </grid-header> 
-      <grid-body>  
-        <core-list data="{{rows}}" height="{{rowheight}}">
+      <grid-body flex layout vertical>  
+        <core-list data="{{rows}}" height="{{rowheight}}" flex>
           <template ref="row-default"></template>
         </core-list>              
       </grid-body>

@@ -221,13 +221,13 @@ and sorts the internal databound collection.
 
           compare left, right
 
+
 ## ready()
 Reads cell defaut and swaps out template is necessary.
-
-      ready: ->
-        @ignoredcols ||= []
+      
+      ready: ->        
         @buildDefaultCellRef()
-
+      
 ## propParser(doc,prop):*
 Takes a document and dot property string (ex. `'prop1.prop2'`) and returns the value
 in the object for the nested property.

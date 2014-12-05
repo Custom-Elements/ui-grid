@@ -14179,7 +14179,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 grid-header {
   text-transform: capitalize;
   font-weight: bold;
-  height: 68px;
 }
 grid {
   display: block;
@@ -14189,7 +14188,6 @@ grid {
 }
 grid grid-body {
   display: block;
-  height: calc(100% - 68px );
 }
 grid grid-row {
   display: block;
@@ -14261,7 +14259,6 @@ core-list {
 grid-header {
   text-transform: capitalize;
   font-weight: bold;
-  height: 68px;
 }
 grid {
   display: block;
@@ -14271,7 +14268,6 @@ grid {
 }
 grid grid-body {
   display: block;
-  height: calc(100% - 68px );
 }
 grid grid-row {
   display: block;
@@ -14351,12 +14347,12 @@ core-list {
       {{model[key]}}
     </template>
 
-    <grid>                
+    <grid vertical="" layout="">                
       <grid-header horizontal="" layout="" center="">
         <template repeat="{{header in headers}}" ref="header-default"></template>        
       </grid-header> 
-      <grid-body>  
-        <core-list data="{{rows}}" height="{{rowheight}}">
+      <grid-body flex="" layout="" vertical="">  
+        <core-list data="{{rows}}" height="{{rowheight}}" flex="">
           <template ref="row-default"></template>
         </core-list>              
       </grid-body>
@@ -14590,7 +14586,6 @@ Polymer('ui-grid', {
     })(this));
   },
   ready: function() {
-    this.ignoredcols || (this.ignoredcols = []);
     return this.buildDefaultCellRef();
   },
   propParser: function(doc, prop) {
