@@ -1,11 +1,18 @@
 {
-  "name": "ui-table",
+  "name": "ui-grid",
   "version": "0.0.0",
   "dependencies": {
-    "polymer-build": ""    
+    "bower": "^1.3.12",
+    "polymer": "git://github.com/custom-elements/polymer#master",
+    "polymer-build": "",
+    "ui-fonts": "git://github.com/custom-elements/ui-fonts#master",
+    "ui-styles": "git://github.com/custom-elements/ui-styles#master"
   },
+  "author": "Will Ballard <wballard@mailframe.net>",
+  "repository": "git://github.com/custom-elements/ui-button.git",
   "license": "ISC",
   "scripts": {
-    "test": "polymer-build --exclude-polymer watch . src/ build/"    
-  }  
+    "test": "./node_modules/.bin/polymer-build watch . src/ build/",
+    "postinstall": "bower install"
+  }
 }

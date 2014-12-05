@@ -1,7 +1,4 @@
-@grid-header-height: 38px;
-
 :host {
-  height: 100%;
   display: block;
 }
 
@@ -12,20 +9,16 @@
 grid-header {
   text-transform: capitalize; 
   font-weight: bold;
-  height: @grid-header-height;
 }
 
-
 grid {
-
-
   display: block; 
   height: 100%;
   font-family:arial;
+  border: solid 1px rgb(226, 226, 226);
 
   grid-body {
-    display: block; 
-    height: ~"calc(100% -" @grid-header-height ~")";
+    display: block;     
   }
   
   grid-row {
@@ -37,11 +30,10 @@ grid {
 
   grid-cell, grid-header-item {
     display:block;
-    padding: 10px;
+    padding: 16px;
     box-sizing: border-box;
     overflow: hidden;
-    white-space: nowrap; 
-    text-overflow: ellipsis;
+    
     &:hover {
       border-radius: 5px;
       z-index: 9800;
@@ -55,12 +47,7 @@ grid {
 
   grid-sort-header {
     display: flex;
-    justify-content: space-between;
-    div{
-      overflow: hidden;
-      white-space: nowrap; 
-      text-overflow: ellipsis;
-    }
+    justify-content: space-between;    
   }
 
   grid-sort-icon {
@@ -72,23 +59,23 @@ core-list {
   height: 100%;
 }
 
+[sort-desc]:before {
+  content: "\25be";
+  cursor: pointer;
+}
+
 [sort-asc]:before {
   -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
   -o-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   transform: rotate(180deg);
-  content:"\25be";
+  content: "\25be";
   display:inline-block;
   cursor: pointer;
 }
 
 [sort]:before {
-  content:"\2b0d";
-  cursor: pointer;
-}
-
-[sort-desc]:before {
-  content:"\25be";
+  content: "\25be";
   cursor: pointer;
 }
