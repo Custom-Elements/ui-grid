@@ -175,7 +175,17 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
           @shadowRoot.removeChild @$['column-default']
           t = document.createElement 'template'
           t.setAttribute 'id', 'column'
-          t.innerHTML = cellDefaultOverride.innerHTML
+          t.innerHTML = cellDefault.innerHTML
+          @shadowRoot.appendChild t
+
+        headerDefault = @$['header-default-override']
+          .getDistributedNodes().array()?[0]    
+
+        if headerDefault
+          @shadowRoot.removeChild @$['header-default']
+          t = document.createElement 'template'
+          t.setAttribute 'id', 'header-default'
+          t.innerHTML = headerDefault.innerHTML
           @shadowRoot.appendChild t
 
       removeStaleTemplateRefs: ->
@@ -207,8 +217,7 @@ reset their `direction` if they are not active.  For now only single column sort
 Internal function that syncs `@_value` and `@sort`.  It updates the header states
 and sorts the internal databound collection.
 
-      applySort: ->  
-        debugger     
+      applySort: ->   
         return unless @rows and @sort
 
         @updateHeaders()

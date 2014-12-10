@@ -459,7 +459,7 @@ html /deep/ [segment], html /deep/ segment {
 
 </style>
 
-<script built="/Users/rfairchild/code/ui-grid/bower_components/polymer/polymer.js">/**
+<script built="/Users/sbazli/github/ui-table/bower_components/polymer/polymer.js">/**
  * @license
  * Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
  * This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -12371,9 +12371,9 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<!-- did not import /Users/rfairchild/code/ui-grid/bower_components/polymer/polymer.html-->
+<!-- did not import /Users/sbazli/github/ui-table/bower_components/polymer/polymer.html-->
 
-<script built="/Users/rfairchild/code/ui-grid/bower_components/polymer/polymer.js"></script>
+<script built="/Users/sbazli/github/ui-table/bower_components/polymer/polymer.js"></script>
 
 
 <polymer-element name="core-selection" attributes="multi" hidden>
@@ -13670,9 +13670,9 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<!-- did not import /Users/rfairchild/code/ui-grid/bower_components/polymer/polymer.html-->
+<!-- did not import /Users/sbazli/github/ui-table/bower_components/polymer/polymer.html-->
 
-<script built="/Users/rfairchild/code/ui-grid/bower_components/polymer/polymer.js"></script>
+<script built="/Users/sbazli/github/ui-table/bower_components/polymer/polymer.js"></script>
 
 
 <polymer-element name="core-xhr" hidden>
@@ -14323,6 +14323,7 @@ core-list {
     
     <content id="column-default-override" select="[column-default]"></content>    
     <content id="column-override" select="[column]"></content>
+    <content id="header-default-override" select="[header-default]"></content> 
 
     <template id="header-default">
       <grid-header-item flex="" title="{{header}}">
@@ -14364,7 +14365,7 @@ core-list {
 
 </polymer-element>
 
-<script built="/Users/rfairchild/code/ui-grid/src/ui-grid.litcoffee">(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+<script built="/Users/sbazli/github/ui-table/src/ui-grid.litcoffee">(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 PolymerExpressions.prototype.keys = function(o) {
   if (!o) {
     return;
@@ -14532,13 +14533,21 @@ Polymer('ui-grid', {
     })(this));
   },
   buildDefaultCellRef: function() {
-    var colDefault, t, _ref;
+    var colDefault, headerDefault, t, _ref, _ref1;
     colDefault = (_ref = this.$['column-default-override'].getDistributedNodes().array()) != null ? _ref[0] : void 0;
     if (colDefault) {
       this.shadowRoot.removeChild(this.$['column-default']);
       t = document.createElement('template');
       t.setAttribute('id', 'column');
-      t.innerHTML = cellDefaultOverride.innerHTML;
+      t.innerHTML = cellDefault.innerHTML;
+      this.shadowRoot.appendChild(t);
+    }
+    headerDefault = (_ref1 = this.$['header-default-override'].getDistributedNodes().array()) != null ? _ref1[0] : void 0;
+    if (headerDefault) {
+      this.shadowRoot.removeChild(this.$['header-default']);
+      t = document.createElement('template');
+      t.setAttribute('id', 'header-default');
+      t.innerHTML = headerDefault.innerHTML;
       return this.shadowRoot.appendChild(t);
     }
   },
@@ -14569,7 +14578,6 @@ Polymer('ui-grid', {
     })(this)) : void 0;
   },
   applySort: function() {
-    debugger;
     if (!(this.rows && this.sort)) {
       return;
     }

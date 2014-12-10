@@ -37,7 +37,8 @@
 
   <body>
     <h1>A grid for you!</h1>
-    <ui-grid id="table" rowheight="50" width="600" height="400"></ui-grid>
+    <ui-grid id="table" rowheight="50" width="600" height="400">
+    </ui-grid>
   </body>
 
   <script>
@@ -47,12 +48,13 @@
       var data = [];
 
       for (var i = 0; i < 1000; i++) {
+
         var keys = [ 'a', 'b', 'c', 'd', 'e', 'f' ];
         var row = keys.reduce(function(acc,key,j) {
           acc[key] = key+i;
           return acc;
         },{})
-
+        
         data.push(row);
       }
 
