@@ -14215,11 +14215,11 @@ grid grid-sort-header {
   display: flex;
   justify-content: space-between;
 }
-grid grid-sort-icon {
-  float: right;
-}
 core-list {
   height: 100%;
+}
+grid-sort-icon {
+  float: right;
 }
 [sort-desc]:before {
   content: "\25be";
@@ -14295,11 +14295,11 @@ grid grid-sort-header {
   display: flex;
   justify-content: space-between;
 }
-grid grid-sort-icon {
-  float: right;
-}
 core-list {
   height: 100%;
+}
+grid-sort-icon {
+  float: right;
 }
 [sort-desc]:before {
   content: "\25be";
@@ -14501,18 +14501,18 @@ Polymer('ui-grid', {
   },
   buildTemplateRefs: function() {
     var overriddenColumns, overrideTemplate, usesDefault, _ref;
-    overrideTemplate = (_ref = this.querySelector('[column-override]')) != null ? _ref.array() : void 0;
+    overrideTemplate = (_ref = this.querySelectorAll('[column-override]')) != null ? _ref.array() : void 0;
     overriddenColumns = overrideTemplate != null ? overrideTemplate.map(function(t) {
       return t.getAttribute('name');
     }) : void 0;
-    if (overriddenColumns != null) {
-      overriddenColumns.forEach((function(_this) {
+    if (overrideTemplate != null) {
+      overrideTemplate.forEach((function(_this) {
         return function(o) {
           var col;
           col = o.getAttribute('name');
-          o.setAttribute('id', "#column-" + col);
+          o.setAttribute('id', "column-" + col);
           o.setAttribute('removable', '');
-          return _this.shadowRoot.appendChild(t);
+          return _this.shadowRoot.appendChild(o);
         };
       })(this));
     }
