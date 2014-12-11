@@ -14320,10 +14320,6 @@ core-list {
   cursor: pointer;
 }
 </style>
-    
-    <content id="column-default-override" select="[column-default]"></content>    
-    <content id="column-override" select="[column]"></content>
-    <content id="header-default-override" select="[header-default]"></content> 
 
     <template id="header-default">
       <grid-header-item flex="" title="{{header}}">
@@ -14504,23 +14500,29 @@ Polymer('ui-grid', {
     return Object.keys(headers || {});
   },
   buildTemplateRefs: function() {
-    var overriddenColumns, overrideTemplate, usesDefault;
-    overrideTemplate = this.$['column-override'].getDistributedNodes().array();
-    overriddenColumns = overrideTemplate.map(function(t) {
+    var overriddenColumns, overrideTemplate, usesDefault, _ref;
+    overrideTemplate = (_ref = this.querySelector('[column-override]')) != null ? _ref.array() : void 0;
+    overriddenColumns = overrideTemplate != null ? overrideTemplate.map(function(t) {
       return t.getAttribute('name');
-    });
-    overriddenColumns.forEach((function(_this) {
-      return function(o) {
-        var col;
-        col = o.getAttribute('name');
-        o.setAttribute('id', "#column-" + col);
-        o.setAttribute('removable', '');
-        return _this.shadowRoot.appendChild(t);
-      };
-    })(this));
-    usesDefault = this.headers.filter(function(i) {
-      return overriddenColumns.indexOf(i) < 0;
-    });
+    }) : void 0;
+    if (overriddenColumns != null) {
+      overriddenColumns.forEach((function(_this) {
+        return function(o) {
+          var col;
+          col = o.getAttribute('name');
+          o.setAttribute('id', "#column-" + col);
+          o.setAttribute('removable', '');
+          return _this.shadowRoot.appendChild(t);
+        };
+      })(this));
+    }
+    if (overriddenColumns) {
+      usesDefault = this.headers.filter(function(i) {
+        return overriddenColumns.indexOf(i) < 0;
+      });
+    } else {
+      usesDefault = this.headers;
+    }
     return usesDefault.forEach((function(_this) {
       return function(col) {
         var t;
@@ -14533,22 +14535,18 @@ Polymer('ui-grid', {
     })(this));
   },
   buildDefaultCellRef: function() {
-    var colDefault, headerDefault, t, _ref, _ref1;
-    colDefault = (_ref = this.$['column-default-override'].getDistributedNodes().array()) != null ? _ref[0] : void 0;
+    var colDefault, headerDefault;
+    colDefault = this.querySelector('[column-default]');
     if (colDefault) {
       this.shadowRoot.removeChild(this.$['column-default']);
-      t = document.createElement('template');
-      t.setAttribute('id', 'column');
-      t.innerHTML = cellDefault.innerHTML;
-      this.shadowRoot.appendChild(t);
+      colDefault.setAttribute('id', 'column');
+      this.shadowRoot.appendChild(colDefault);
     }
-    headerDefault = (_ref1 = this.$['header-default-override'].getDistributedNodes().array()) != null ? _ref1[0] : void 0;
+    headerDefault = this.querySelector('[header-default]');
     if (headerDefault) {
       this.shadowRoot.removeChild(this.$['header-default']);
-      t = document.createElement('template');
-      t.setAttribute('id', 'header-default');
-      t.innerHTML = headerDefault.innerHTML;
-      return this.shadowRoot.appendChild(t);
+      headerDefault.setAttribute('id', 'header-default');
+      return this.shadowRoot.appendChild(headerDefault);
     }
   },
   removeStaleTemplateRefs: function() {

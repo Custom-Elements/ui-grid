@@ -151,15 +151,19 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
         Object.keys(headers || {})        
 
       buildTemplateRefs: ->
-        overrideTemplate = @$['column-override'].getDistributedNodes().array()
-        overriddenColumns = overrideTemplate.map (t) -> t.getAttribute 'name'
-        overriddenColumns.forEach (o) =>
+        overrideTemplate = @querySelector('[column-override]')?.array()
+        overriddenColumns = overrideTemplate?.map (t) -> t.getAttribute 'name'
+        overriddenColumns?.forEach (o) =>
           col = o.getAttribute 'name'          
           o.setAttribute 'id', "#column-#{col}"
           o.setAttribute 'removable', ''
           @shadowRoot.appendChild t
         
-        usesDefault = @headers.filter (i) -> overriddenColumns.indexOf(i) < 0        
+        if overriddenColumns
+          usesDefault = @headers.filter (i) -> overriddenColumns.indexOf(i) < 0
+        else
+          usesDefault = @headers  
+
         usesDefault.forEach (col) =>
           t = document.createElement 'template'          
           t.setAttribute 'id', "column-#{col}"
@@ -168,25 +172,19 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
           @shadowRoot.appendChild t
 
       buildDefaultCellRef: ->
-        colDefault = @$['column-default-override']
-          .getDistributedNodes().array()?[0]    
+        colDefault = @querySelector('[column-default]')     
 
         if colDefault
           @shadowRoot.removeChild @$['column-default']
-          t = document.createElement 'template'
-          t.setAttribute 'id', 'column'
-          t.innerHTML = cellDefault.innerHTML
-          @shadowRoot.appendChild t
+          colDefault.setAttribute 'id', 'column'
+          @shadowRoot.appendChild colDefault
 
-        headerDefault = @$['header-default-override']
-          .getDistributedNodes().array()?[0]    
+        headerDefault = @querySelector('[header-default]')     
 
         if headerDefault
           @shadowRoot.removeChild @$['header-default']
-          t = document.createElement 'template'
-          t.setAttribute 'id', 'header-default'
-          t.innerHTML = headerDefault.innerHTML
-          @shadowRoot.appendChild t
+          headerDefault.setAttribute 'id', 'header-default'
+          @shadowRoot.appendChild headerDefault
 
       removeStaleTemplateRefs: ->
         @$['[removable]']?.array().forEach (t) =>
@@ -233,7 +231,7 @@ and sorts the internal databound collection.
 
 ## ready()
 Reads cell defaut and swaps out template is necessary.
-      
+
       ready: ->        
         @buildDefaultCellRef()
       
