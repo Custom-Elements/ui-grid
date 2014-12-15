@@ -14521,14 +14521,14 @@ Polymer('ui-grid', {
     overriddenColumns = overrideTemplate != null ? overrideTemplate.map(function(t) {
       return t.getAttribute('name');
     }) : void 0;
-    if (overriddenColumns != null) {
-      overriddenColumns.forEach((function(_this) {
+    if (overrideTemplate != null) {
+      overrideTemplate.forEach((function(_this) {
         return function(o) {
           var col;
           col = o.getAttribute('name');
           o.setAttribute('id', "#column-" + col);
           o.setAttribute('removable', '');
-          return _this.shadowRoot.appendChild(t);
+          return _this.shadowRoot.appendChild(o);
         };
       })(this));
     }

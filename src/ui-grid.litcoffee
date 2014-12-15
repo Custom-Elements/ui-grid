@@ -153,11 +153,13 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
       buildTemplateRefs: ->
         overrideTemplate = @querySelectorAll('[column-override]')?.array()
         overriddenColumns = overrideTemplate?.map (t) -> t.getAttribute 'name'
-        overriddenColumns?.forEach (o) =>
+        
+        overrideTemplate?.forEach (o) =>
           col = o.getAttribute 'name'          
           o.setAttribute 'id', "#column-#{col}"
           o.setAttribute 'removable', ''
-          @shadowRoot.appendChild t
+          @shadowRoot.appendChild o
+
         if overriddenColumns
           usesDefault = @headers.filter (i) -> overriddenColumns.indexOf(i) < 0
         else
