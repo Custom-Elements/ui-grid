@@ -152,15 +152,12 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
 
       buildTemplateRefs: ->
         overrideTemplate = @querySelectorAll('[column-override]')?.array()
-        overriddenColumns = overrideTemplate?.map (t) ->
-          t.getAttribute 'name'
-
-        overrideTemplate?.forEach (o) =>
+        overriddenColumns = overrideTemplate?.map (t) -> t.getAttribute 'name'
+        overriddenColumns?.forEach (o) =>
           col = o.getAttribute 'name'          
-          o.setAttribute 'id', "column-#{col}"
+          o.setAttribute 'id', "#column-#{col}"
           o.setAttribute 'removable', ''
-          @shadowRoot.appendChild o
-        
+          @shadowRoot.appendChild t
         if overriddenColumns
           usesDefault = @headers.filter (i) -> overriddenColumns.indexOf(i) < 0
         else
@@ -197,7 +194,7 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
 Change handler for the `grid-sort` event that is dispatched by child elements
 
       sortColumn: (event, descriptor) ->             
-        @sort = descriptor      
+        @sort = descriptor 
 
 ## updateHeaders()
 Internal function that find all of the child sortable headers and attempts to 

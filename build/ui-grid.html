@@ -14195,15 +14195,13 @@ grid grid-row {
   border: solid 1px #e2e2e2;
   border-top: none;
 }
-grid grid-cell,
-grid grid-header-item {
+grid grid-cell {
   display: block;
-  padding: 16px;
+  padding: 10px 5px 10px 5px;
   box-sizing: border-box;
   overflow: hidden;
 }
-grid grid-cell:hover,
-grid grid-header-item:hover {
+grid grid-cell:hover {
   border-radius: 5px;
   z-index: 9800;
 }
@@ -14211,9 +14209,19 @@ grid grid-cell {
   height: 100%;
   cursor: pointer;
 }
-grid grid-sort-header {
+grid-header /deep/ grid-sort-header {
   display: flex;
   justify-content: space-between;
+}
+grid-header /deep/ grid-header-item {
+  display: block;
+  padding: 10px 5px 10px 5px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+grid-header /deep/ grid-header-item:hover {
+  border-radius: 5px;
+  z-index: 9800;
 }
 core-list {
   height: 100%;
@@ -14275,15 +14283,13 @@ grid grid-row {
   border: solid 1px #e2e2e2;
   border-top: none;
 }
-grid grid-cell,
-grid grid-header-item {
+grid grid-cell {
   display: block;
-  padding: 16px;
+  padding: 10px 5px 10px 5px;
   box-sizing: border-box;
   overflow: hidden;
 }
-grid grid-cell:hover,
-grid grid-header-item:hover {
+grid grid-cell:hover {
   border-radius: 5px;
   z-index: 9800;
 }
@@ -14291,9 +14297,19 @@ grid grid-cell {
   height: 100%;
   cursor: pointer;
 }
-grid grid-sort-header {
+grid-header /deep/ grid-sort-header {
   display: flex;
   justify-content: space-between;
+}
+grid-header /deep/ grid-header-item {
+  display: block;
+  padding: 10px 5px 10px 5px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+grid-header /deep/ grid-header-item:hover {
+  border-radius: 5px;
+  z-index: 9800;
 }
 core-list {
   height: 100%;
@@ -14505,14 +14521,14 @@ Polymer('ui-grid', {
     overriddenColumns = overrideTemplate != null ? overrideTemplate.map(function(t) {
       return t.getAttribute('name');
     }) : void 0;
-    if (overrideTemplate != null) {
-      overrideTemplate.forEach((function(_this) {
+    if (overriddenColumns != null) {
+      overriddenColumns.forEach((function(_this) {
         return function(o) {
           var col;
           col = o.getAttribute('name');
-          o.setAttribute('id', "column-" + col);
+          o.setAttribute('id', "#column-" + col);
           o.setAttribute('removable', '');
-          return _this.shadowRoot.appendChild(o);
+          return _this.shadowRoot.appendChild(t);
         };
       })(this));
     }

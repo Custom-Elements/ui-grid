@@ -28,9 +28,9 @@ grid {
     border-top: none; 
   }
 
-  grid-cell, grid-header-item {
+  grid-cell {
     display:block;
-    padding: 16px;
+    padding: 10px 5px 10px 5px;
     box-sizing: border-box;
     overflow: hidden;
     
@@ -44,10 +44,22 @@ grid {
     height: 100%;
     cursor: pointer;
   }
+}
 
-  grid-sort-header {
-    display: flex;
-    justify-content: space-between;    
+grid-header /deep/ grid-sort-header{
+  display: flex;
+  justify-content: space-between;  
+}
+
+grid-header /deep/ grid-header-item {
+  display:block;
+  padding: 10px 5px 10px 5px;
+  box-sizing: border-box;
+  overflow: hidden;
+  
+  &:hover {
+    border-radius: 5px;
+    z-index: 9800;
   }
 }
 
