@@ -137,9 +137,12 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
         res = event.detail.response
         if @transformResponse
           return @value = @transformResponse res
-        @value = res        
+        @value = res     
 
-      buildRows: (value, headers) ->              
+      buildRows: (value, headers) ->    
+        if value
+          @fire 'gridvaluechanged'           
+
         value
 
       buildHeaders: (value) ->        

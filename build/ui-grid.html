@@ -14503,6 +14503,9 @@ Polymer('ui-grid', {
     return this.value = res;
   },
   buildRows: function(value, headers) {
+    if (value) {
+      this.fire('gridvaluechanged');
+    }
     return value;
   },
   buildHeaders: function(value) {
