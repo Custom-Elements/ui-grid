@@ -158,10 +158,13 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
         overriddenColumns = overrideTemplate?.map (t) -> t.getAttribute 'name'
         
         overrideTemplate?.forEach (o) =>
-          col = o.getAttribute 'name'          
-          o.setAttribute 'id', "#column-#{col}"
-          o.setAttribute 'removable', ''
-          @shadowRoot.appendChild o
+          col = o.getAttribute 'name' 
+          colId = "column-#{col}"
+          o.setAttribute 'id', colId
+          @shadowRoot.appendChild o     
+          
+          t = @shadowRoot.querySelector("##{colId}")
+          t.setAttribute 'removable', ''
 
         if overriddenColumns
           usesDefault = @headers.filter (i) -> overriddenColumns.indexOf(i) < 0
@@ -174,6 +177,7 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
           t.setAttribute 'removable', ''
           t.setAttribute 'ref', 'column-default'          
           @shadowRoot.appendChild t
+
 
       buildDefaultCellRef: ->
         colDefault = @querySelector('[column-default]')     

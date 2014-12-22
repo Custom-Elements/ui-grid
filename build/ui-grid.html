@@ -14527,11 +14527,13 @@ Polymer('ui-grid', {
     if (overrideTemplate != null) {
       overrideTemplate.forEach((function(_this) {
         return function(o) {
-          var col;
+          var col, colId, t;
           col = o.getAttribute('name');
-          o.setAttribute('id', "#column-" + col);
-          o.setAttribute('removable', '');
-          return _this.shadowRoot.appendChild(o);
+          colId = "column-" + col;
+          o.setAttribute('id', colId);
+          _this.shadowRoot.appendChild(o);
+          t = _this.shadowRoot.querySelector("#" + colId);
+          return t.setAttribute('removable', '');
         };
       })(this));
     }
