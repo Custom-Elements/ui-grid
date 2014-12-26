@@ -31,9 +31,9 @@
   
   <template>    
     <link rel="stylesheet" type="text/css" href="./ui-grid.less">    
-    <icon sort-asc hide?="{{ direction != 'asc' }}"></icon>
-    <icon sort-desc hide?="{{ direction != 'desc' }}"></icon>
-    <icon sort hide?="{{ direction }}"></icon>
+    <icon sort-asc hide?="{{ direction != 'asc' }}" title="Click to sort descending"></icon>
+    <icon sort-desc hide?="{{ direction != 'desc' }}" title="Click to sort ascending"></icon>
+    <icon sort hide?="{{ direction }}" title="Click to sort" ></icon>
   </template>
 
 </polymer-element>
@@ -47,7 +47,7 @@
       <grid-header-item flex>
         <grid-sort-header sortprop="{{header}}" active="true" col="{{header}}">          
           <div>{{ header }}</div>
-          <grid-sort-icon sort-icon title="Click to sort"></grid-sort-icon>          
+          <grid-sort-icon sort-icon></grid-sort-icon>          
         </grid-sort-header>
       </grid-header-item>
     </template>

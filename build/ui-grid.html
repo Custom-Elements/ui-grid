@@ -14247,9 +14247,9 @@ grid-sort-icon {
   cursor: pointer;
 }
 </style>    
-    <icon sort-asc="" hide?="{{ direction != &apos;asc&apos; }}"></icon>
-    <icon sort-desc="" hide?="{{ direction != &apos;desc&apos; }}"></icon>
-    <icon sort="" hide?="{{ direction }}"></icon>
+    <icon sort-asc="" hide?="{{ direction != &apos;asc&apos; }}" title="Click to sort descending"></icon>
+    <icon sort-desc="" hide?="{{ direction != &apos;desc&apos; }}" title="Click to sort ascending"></icon>
+    <icon sort="" hide?="{{ direction }}" title="Click to sort"></icon>
   </template>
 
 </polymer-element>
@@ -14339,7 +14339,7 @@ grid-sort-icon {
       <grid-header-item flex="">
         <grid-sort-header sortprop="{{header}}" active="true" col="{{header}}">          
           <div>{{ header }}</div>
-          <grid-sort-icon sort-icon="" title="Click to sort"></grid-sort-icon>          
+          <grid-sort-icon sort-icon=""></grid-sort-icon>          
         </grid-sort-header>
       </grid-header-item>
     </template>
