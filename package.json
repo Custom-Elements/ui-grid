@@ -13,6 +13,6 @@
   "license": "ISC",
   "scripts": {
     "test": "./node_modules/.bin/polymer-build watch . src/ build/",
-    "postinstall": "bower install"
+    "postinstall": "./node_modules/.bin/bower install"
   }
 }
