@@ -2,16 +2,20 @@
   "name": "ui-grid",
   "version": "0.0.0",
   "dependencies": {
-    "polymer": "git://github.com/custom-elements/polymer#master",
-    "polymer-build": "",
-    "ui-fonts": "git://github.com/custom-elements/ui-fonts#master",
-    "ui-styles": "git://github.com/custom-elements/ui-styles#master"
+    "polymer": "git://github.com/custom-elements/polymer",
+    "polymer-serve": "git://github.com/custom-elements/polymer-serve",
+    "ui-fonts": "git://github.com/custom-elements/ui-fonts",
+    "ui-styles": "git://github.com/custom-elements/ui-styles"
   },
-  "author": "Will Ballard <wballard@mailframe.net>",
-  "repository": "git://github.com/custom-elements/ui-button.git",
-  "license": "ISC",
+  "author": "Ryan Fairchild <ryan.fairchild@gmail.com>",
+  "contributors": [{
+    "name": "Sayeef Bazli",
+    "email": "<sayeef.bazli@gmail.com>"
+  }],
+  "repository": "git://github.com/custom-elements/ui-grid.git",
+  "license": "MIT",
   "scripts": {
-    "test": "./node_modules/.bin/polymer-build watch . src/ build/",
-    "postinstall": "npm install bower; ./node_modules/.bin/bower install"
+    "test": "polymer-serve .",
+    "postinstall": "npm install bower; bower install"
   }
 }
