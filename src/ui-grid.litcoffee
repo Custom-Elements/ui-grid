@@ -43,14 +43,14 @@ if present.
 ## Change handlers
 Handlers that attempt to sync and only dispatch one event by calling `applySort()`.
 
-      directionChanged: ->      
+      directionChanged: -> 
         @applySort()    
         @updateIcon()    
 
       sortpropChanged: ->
         @applySort()
 
-      colChanged: ->              
+      colChanged: -> 
         @applySort()
 
 ## updateIcon()
@@ -77,7 +77,7 @@ _Dispatches:_ `'grid-sort', { direction, prop, col }`
 Event handler for when the header is clicked.  If the header is not active
 then it will suppress `applySort()` from dispatching its event.
 
-      toggleDirection: (event, detail, element) ->        
+      toggleDirection: (event, detail, element) ->   
         @direction = if @direction == 'asc' then 'desc' else 'asc'                
         @active = true
 
@@ -128,10 +128,6 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
       rowsChanged: ->
         @removeStaleTemplateRefs()
         @buildTemplateRefs(@headers)
-        
-        @sort ||= 
-          direction: 'asc'
-          prop: @headers?[0]
 
       updateValue: (event) ->  
         res = event.detail.response
