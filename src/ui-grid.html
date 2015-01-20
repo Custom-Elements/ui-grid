@@ -2,35 +2,35 @@
 <link rel="import" href="../bower_components/core-ajax/core-ajax.html">
 
 <polymer-element name="grid-cell" on-click="{{cellClicked}}" on-dblClick="{{cellDoubleClicked}}">
-  
+
   <template>
     <content></content>
   </template>
-  
+
 </polymer-element>
 
 <polymer-element name="grid-header" on-click="{{headerClicked}}" on-dblClick="{{headerDoubleClicked}}">
-  
+
   <template>
     <content></content>
   </template>
-  
+
 </polymer-element>
 
-<polymer-element name="grid-sort-header" attributes="col direction sortprop active" 
+<polymer-element name="grid-sort-header" attributes="col direction sortprop active"
   on-click="{{ toggleDirection }}">
 
   <template>
-    <content></content>  
-    <content select="[sort-icon]"></content>  
+    <content></content>
+    <content select="[sort-icon]"></content>
   </template>
 
 </polymer-element>
 
-<polymer-element name="grid-sort-icon" attributes="direction">  
-  
-  <template>    
-    <link rel="stylesheet" type="text/css" href="./ui-grid.less">    
+<polymer-element name="grid-sort-icon" attributes="direction">
+
+  <template>
+    <link rel="stylesheet" type="text/css" href="./ui-grid.less">
     <icon sort-asc hide?="{{ direction != 'asc' }}" title="Click to sort descending"></icon>
     <icon sort-desc hide?="{{ direction != 'desc' }}" title="Click to sort ascending"></icon>
     <icon sort hide?="{{ direction }}" title="Click to sort" ></icon>
@@ -39,47 +39,47 @@
 </polymer-element>
 
 <polymer-element name="ui-grid" attributes="value sort url rowheight src ignoredcols" on-grid-sort="{{sortColumn}}">
-    
+
   <template>
     <link rel="stylesheet" type="text/css" href="./ui-grid.less">
 
     <template id="header-default">
       <grid-header-item flex>
-        <grid-sort-header sortprop="{{header}}" active="true" col="{{header}}">          
+        <grid-sort-header sortprop="{{header}}" active="true" col="{{header}}">
           <div>{{ header }}</div>
-          <grid-sort-icon sort-icon></grid-sort-icon>          
+          <grid-sort-icon sort-icon></grid-sort-icon>
         </grid-sort-header>
       </grid-header-item>
     </template>
-    
+
     <template id="row-default">
-      <grid-row horizontal layout center>                
+      <grid-row horizontal layout center>
         <template repeat="{{key in model | keys }}">
           <grid-cell flex class="{{key}}">
-            <template ref="column-{{key}}" bind="{{ { model: model, key: key } }}"></template>            
+            <template ref="column-{{key}}" bind="{{ { model: model, key: key } }}"></template>
           </grid-cell>
         </template>
       </grid-row>
     </template>
 
-    <template id="column-default">      
+    <template id="column-default">
       {{model[key]}}
     </template>
 
-    <grid vertical layout>                
+    <grid vertical layout>
       <grid-header horizontal layout center>
-        <template repeat="{{header in headers}}" ref="header-default"></template>        
-      </grid-header> 
-      <grid-body flex layout vertical>  
+        <template repeat="{{header in headers}}" ref="header-default"></template>
+      </grid-header>
+      <grid-body flex layout vertical>
         <core-list data="{{rows}}" height="{{rowheight}}" flex>
           <template ref="row-default"></template>
-        </core-list>              
+        </core-list>
       </grid-body>
     </grid>
-  
+
     <core-ajax
       auto
-      url="{{src}}"          
+      url="{{src}}"
       handleAs="json"
       on-core-response="{{updateValue}}"></core-ajax>
 

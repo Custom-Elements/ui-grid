@@ -1,3 +1,5 @@
+@import "../node_modules/ui-styles/variables.less";
+
 :host {
   display: block;
 }
@@ -7,33 +9,33 @@
 }
 
 grid-header {
-  text-transform: capitalize; 
+  text-transform: capitalize;
   font-weight: bold;
 }
 
 grid {
-  display: block; 
+  display: block;
   height: 100%;
   font-family:arial;
   border: solid 1px rgb(226, 226, 226);
 
   grid-body {
-    display: block;     
+    display: block;
   }
-  
+
   grid-row {
-    display:block; 
+    display:block;
     box-sizing: border-box;
     border: solid 1px rgb(226, 226, 226);
-    border-top: none; 
+    border-top: none;
   }
 
   grid-cell {
     display:block;
-    padding: 10px 5px 10px 5px;
+    padding: @pad;
     box-sizing: border-box;
     overflow: hidden;
-    
+
     &:hover {
       border-radius: 5px;
       z-index: 9800;
@@ -47,15 +49,15 @@ grid {
 
 grid-header /deep/ grid-sort-header{
   display: flex;
-  justify-content: space-between;  
+  justify-content: space-between;
 }
 
 grid-header /deep/ grid-header-item {
   display:block;
-  padding: 10px 5px 10px 5px;
+  padding: @pad;
   box-sizing: border-box;
   overflow: hidden;
-  
+
   &:hover {
     border-radius: 5px;
     z-index: 9800;
@@ -67,31 +69,24 @@ core-list {
 }
 
 grid-sort-icon {
-  float: right;
+  align-self: flex-end;
+  display: flex;
+  align-items: flex-start;
 }
 
 [sort-desc]:before {
   content: "\25be";
   cursor: pointer;
-  zoom: 150%;
 }
 
 [sort-asc]:before {
-  -webkit-backface-visibility: hidden;
-  -webkit-transform: translateZ(0) scale(1.0, 1.0);
-  -webkit-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
-  -o-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  transform: rotate(180deg);
+  .transform(rotate(180deg));
   content: "\25be";
   display:inline-block;
   cursor: pointer;
-  zoom: 150%;
 }
 
 [sort]:before {
   content: "\25be";
   cursor: pointer;
-  zoom: 150%;
 }
