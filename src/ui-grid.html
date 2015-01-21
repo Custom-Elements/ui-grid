@@ -31,9 +31,7 @@
 
   <template>
     <link rel="stylesheet" type="text/css" href="./ui-grid.less">
-    <icon sort-asc hide?="{{ direction != 'asc' }}" title="Click to sort descending"></icon>
-    <icon sort-desc hide?="{{ direction != 'desc' }}" title="Click to sort ascending"></icon>
-    <icon sort hide?="{{ direction }}" title="Click to sort" ></icon>
+    <icon sort-asc?="{{ direction == 'asc' }}" sort-desc?="{{ direction == 'desc' }}" sort?="{{ !direction }}" title="Click to sort{{ {' descending': direction == 'asc', ' ascending': direction == 'desc', '': !direction} | tokenList}}"></icon>
   </template>
 
 </polymer-element>
