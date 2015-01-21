@@ -4,6 +4,7 @@
 <polymer-element name="grid-cell" on-click="{{cellClicked}}" on-dblClick="{{cellDoubleClicked}}">
 
   <template>
+    <link rel="stylesheet" type="text/css" href="./grid-cell.less">
     <content></content>
   </template>
 
@@ -12,6 +13,7 @@
 <polymer-element name="grid-header" on-click="{{headerClicked}}" on-dblClick="{{headerDoubleClicked}}">
 
   <template>
+    <link rel="stylesheet" type="text/css" href="./grid-header.less">
     <content></content>
   </template>
 
@@ -21,16 +23,16 @@
   on-click="{{ toggleDirection }}">
 
   <template>
+    <link rel="stylesheet" type="text/css" href="./grid-sort-header.less">
     <content></content>
-    <content select="[sort-icon]"></content>
   </template>
 
 </polymer-element>
 
-<polymer-element name="grid-sort-icon" attributes="direction">
+<polymer-element name="grid-sort-icon" attributes="direction" noscript>
 
   <template>
-    <link rel="stylesheet" type="text/css" href="./ui-grid.less">
+    <link rel="stylesheet" type="text/css" href="./grid-sort-icon.less">
     <icon sort-asc?="{{ direction == 'asc' }}" sort-desc?="{{ direction == 'desc' }}" sort?="{{ !direction }}" title="Click to sort{{ {' descending': direction == 'asc', ' ascending': direction == 'desc', '': !direction} | tokenList}}"></icon>
   </template>
 

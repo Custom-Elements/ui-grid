@@ -1,0 +1,27 @@
+@import "../node_modules/ui-styles/variables.less";
+
+:host {
+  align-self: flex-end;
+  display: flex;
+  align-items: flex-start;
+
+  [sort-desc]:before {
+    .transition(@transition);
+    content: "\25be";
+    cursor: pointer;
+  }
+
+  [sort-asc]:before {
+    .transition(@transition);
+    .transform(rotate(180deg));
+    content: "\25be";
+    display:inline-block;
+    cursor: pointer;
+  }
+
+  [sort]:before {
+    .transition(@transition);
+    content: "\25be";
+    cursor: pointer;
+  }
+}

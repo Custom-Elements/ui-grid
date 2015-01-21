@@ -2,90 +2,34 @@
 
 :host {
   display: block;
-}
 
-grid-header {
-  text-transform: capitalize;
-  font-weight: bold;
-}
 
-grid {
-  display: block;
-  height: 100%;
-  font-family:arial;
-  border: solid 1px rgb(226, 226, 226);
-
-  grid-body {
+  grid {
     display: block;
+    height: 100%;
+    font-family:arial;
+    border: solid .1em rgb(226, 226, 226);
+
+    grid-body {
+      display: block;
+    }
+
+    grid-row {
+      display:block;
+      box-sizing: border-box;
+      border: solid .1em rgb(226, 226, 226);
+      border-top: none;
+    }
   }
 
-  grid-row {
-    display:block;
-    box-sizing: border-box;
-    border: solid 1px rgb(226, 226, 226);
-    border-top: none;
-  }
-
-  grid-cell {
+  grid-header /deep/ grid-header-item {
     display:block;
     padding: @pad;
     box-sizing: border-box;
     overflow: hidden;
-
-    &:hover {
-      border-radius: 5px;
-      z-index: 9800;
-    }
   }
 
-  grid-cell {
+  core-list {
     height: 100%;
   }
-}
-
-grid-header /deep/ grid-sort-header{
-  display: flex;
-  justify-content: space-between;
-}
-
-grid-header /deep/ grid-header-item {
-  display:block;
-  padding: @pad;
-  box-sizing: border-box;
-  overflow: hidden;
-
-  &:hover {
-    border-radius: 5px;
-    z-index: 9800;
-  }
-}
-
-core-list {
-  height: 100%;
-}
-
-grid-sort-icon {
-  align-self: flex-end;
-  display: flex;
-  align-items: flex-start;
-}
-
-[sort-desc]:before {
-  .transition(@transition);
-  content: "\25be";
-  cursor: pointer;
-}
-
-[sort-asc]:before {
-  .transition(@transition);
-  .transform(rotate(180deg));
-  content: "\25be";
-  display:inline-block;
-  cursor: pointer;
-}
-
-[sort]:before {
-  .transition(@transition);
-  content: "\25be";
-  cursor: pointer;
 }
