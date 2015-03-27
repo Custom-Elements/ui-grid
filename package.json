@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "dependencies": {
     "polymer": "git://github.com/custom-elements/polymer",
-    "polymer-serve": "git://github.com/custom-elements/polymer-serve",
-    "ui-fonts": "git://github.com/custom-elements/ui-fonts",
+    "polymer-serve": "^0.0.30",
+    "ui-fonts": "^0.0.1",
     "ui-styles": "git://github.com/custom-elements/ui-styles"
   },
   "author": "Ryan Fairchild <ryan.fairchild@gmail.com>",
