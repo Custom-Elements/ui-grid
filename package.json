@@ -15,7 +15,6 @@
   "repository": "git://github.com/custom-elements/ui-grid.git",
   "license": "MIT",
   "scripts": {
-    "test": "polymer-serve .",
-    "postinstall": "npm install bower; bower install"
+    "test": "polymer-serve ."
   }
 }
