@@ -1,4 +1,4 @@
-<!doctype html>
+ <!doctype html>
 
 <html>
   <head>
@@ -33,43 +33,117 @@
       color: #1976D2;
     }
 
+    section {
+      width: 600px;
+    }
+
   </style>
 
   <body>
-    <h1>A grid for you!</h1>
-    <ui-grid id="table" rowheight="50" width="600" height="400">
-    </ui-grid>
+    <h1>A (virtualized) grid for you!</h1>
+
+
+    <section>
+      Row virtualization allows you to render large quantities of data without putting large quanitites of
+      DOM elements into the page.  This essentially works by mutating the data that is bound to each row as the view
+      scrolls.  The table is really just made up of the rows you see in the page plus a small buffer on each side.
+      Once a full "page" of data is scrolled off the page, the rows shift back up to the top of the buffer and recycle.
+
+      <br/>
+      <br/>
+
+      Using the following data:
+      <br/>
+      <br/>
+      <script src="https://gist.github.com/sayeefb/5e687edd0a7660663cfb.js"></script>
+      <br/>
+      And this snippet of html and javascript:
+      <br/>
+      <br/>
+      <script src="https://gist.github.com/sayeefb/85a64c18cc0fa3e6d501.js"></script>
+
+      You too can make a spectacular virtualized table!
+      <br/>
+      <br/>
+
+      <ui-grid rowheight="50" height="400"></ui-grid>
+
+
+    </section>
+
+    <section>
+      <h2>Cell Templating</h2>
+
+      The first example is great but it only programmatically renders each cell the same.
+      Cell templating allows us to customize each column independently.
+
+      <br/>
+      <br/>
+
+      <script src="https://gist.github.com/sayeefb/fbad904d87278ab8f33d.js"></script>
+
+      Now marvel at this spectacular sight!
+
+      <br/>
+      <br/>
+
+      <ui-grid rowheight="50" height="400">
+        <template column-override name="a">
+          <b>&#9829;{{model.a}}</b>
+        </template>
+      </ui-grid>
+
+      <br/>
+
+    </section>
+
+    <section>
+      <h3>Todo</h3>
+
+      So there is bunch of stuff that we need to finish up on this.
+
+      <ul>
+        <li>Multi-sort (Need to port solution from consultations) <a href="https://github.com/glg/consultations/blob/starphleet/public/js/controllers/dashboards/Volumizer.coffee#L90">Linked!</a></li>
+        <li>Header template overrides (Copying column override code)</li>
+        <li>Resizeable column widths using core-resizeable</li>
+      </ul>
+
+    </section>
+
   </body>
 
   <script>
     document.addEventListener('polymer-ready', function() {
-      var table = document.querySelector('#table');
+      var tables = document.querySelectorAll('ui-grid').array();
 
-      var data = [];
+      tables.forEach(function(table) {
+        var data = [];
 
-      for (var i = 0; i < 1000; i++) {
+        for (var i = 0; i < 1000; i++) {
 
-        var keys = [ 'a', 'b', 'c', 'd', 'e', 'f' ];
-        var row = keys.reduce(function(acc,key,j) {
-          acc[key] = key+i;
-          return acc;
-        },{})
+          var keys = [ 'a', 'b', 'c', 'd', 'e', 'f' ];
+          var row = keys.reduce(function(acc,key,j) {
+            acc[key] = key+i;
+            return acc;
+          },{})
 
-        data.push(row);
-      }
+          data.push(row);
+        }
 
-      table.value = data;
+        table.value = data;
 
-      var events = [
-        'cellclick',
-        'celldblclick',
-        'headerclick',
-        'headerdblclick',
-        'gridvaluechanged'
-      ]
+        var events = [
+          'cellclick',
+          'celldblclick',
+          'headerclick',
+          'headerdblclick',
+          'gridvaluechanged'
+        ]
 
-      events.forEach(function (event) {
-        table.addEventListener(event, function() { console.log(arguments) });
+        events.forEach(function (event) {
+          table.addEventListener(event, function() { console.log(arguments) });
+        });
+
       });
     })
   </script>
