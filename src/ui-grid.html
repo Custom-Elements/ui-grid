@@ -38,7 +38,7 @@
 
 </polymer-element>
 
-<polymer-element name="ui-grid" attributes="value sort url rowheight src ignoredcols" on-grid-sort="{{sortColumn}}">
+<polymer-element name="ui-grid" attributes="value sort url rowheight src selection multiSelect selectionEnabled" on-grid-sort="{{sortColumn}}" on-core-select="{{getSelection}}">
 
   <template>
     <link rel="stylesheet" type="text/css" href="./ui-grid.less">
@@ -53,7 +53,7 @@
     </template>
 
     <template id="row-default">
-      <grid-row horizontal layout center>
+      <grid-row class="{{ {selected: selected} | tokenList }}" horizontal layout center>
         <template repeat="{{key in model | keys }}">
           <grid-cell flex class="{{key}}">
             <template ref="column-{{key}}" bind="{{ { model: model, key: key } }}"></template>
@@ -71,7 +71,7 @@
         <template repeat="{{header in headers}}" ref="header-default"></template>
       </grid-header>
       <grid-body flex layout vertical>
-        <core-list data="{{rows}}" height="{{rowheight}}" flex>
+        <core-list data="{{rows}}" height="{{rowheight}}" flex multi?="{{multiSelect}}" selectionEnabled="{{!!selectionEnabled}}">
           <template ref="row-default"></template>
         </core-list>
       </grid-body>
