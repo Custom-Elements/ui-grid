@@ -145,7 +145,10 @@ in the `value` property.  This is likely to change. Sorting is also applied if a
         Object.keys(headers || {})
 
       getSelection: ()->
-        @selection = @shadowRoot.querySelector('core-list').selection
+        @shadowRoot.querySelector('core-list').selection
+
+      clearSelection: () ->
+        @shadowRoot.querySelector('core-list').clearSelection()
 
       buildTemplateRefs: ->
         overrideTemplate = @querySelectorAll('[column-override]')?.array()
