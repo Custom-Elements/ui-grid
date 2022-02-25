@@ -13,7 +13,7 @@
     "tag": "0.5.5",
     "commit": "f91588e0297bb3e8e723d4558ab015cf82885571"
   },
-  "_source": "git://github.com/Polymer/core-component-page.git",
+  "_source": "git+https://github.com/Polymer/core-component-page.git",
   "_target": "^0.5.0",
   "_originalSource": "Polymer/core-component-page"
 }
