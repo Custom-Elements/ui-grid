@@ -12,7 +12,7 @@
     "name": "Sayeef Bazli",
     "email": "<sayeef.bazli@gmail.com>"
   }],
-  "repository": "git://github.com/custom-elements/ui-grid.git",
+  "repository": "git+https://github.com/custom-elements/ui-grid.git",
   "license": "MIT",
   "scripts": {
     "test": "polymer-serve ."
